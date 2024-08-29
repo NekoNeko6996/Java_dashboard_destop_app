@@ -49,7 +49,7 @@
             <RadioButton fx:id="keepLogin" layoutX="80.0" layoutY="341.0" mnemonicParsing="false" text="Keep me login in!" />
             <Button layoutX="80.0" layoutY="401.0" mnemonicParsing="false" onAction="#onClickLogin" prefHeight="45.0" prefWidth="330.0" styleClass="confirm-button" text="Login">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Button>
             <Label layoutX="230.0" layoutY="340.0" text="Forgot password?">

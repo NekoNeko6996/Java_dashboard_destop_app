@@ -1,7 +1,7 @@
 {
   "app_version": "1.0",
   "theme": "light",
-  "base_api": "http://localhost:8000",
+  "base_api": "http://localhost:80/AdminDashboardApp/public/api",
   "keep_login": false,
-  "token": ""
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjQ5MzM5NzIsImV4cCI6MTcyNDkzNzU3MiwiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiY3JlYXRlZF9hdCI6IjIwMjQtMDgtMjkgMTQ6MTk6MzIifX0.hlyYSLjGlUOytJCX_vRXyQeMqQlP3w2VqfjE-ty53io"
 }

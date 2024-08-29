@@ -1,5 +1,6 @@
 package com.application.main;
 
+import com.application.models.ScreenInfo;
 import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -21,6 +24,7 @@ public class App extends Application {
     
     // private
     private static final Image appIcon;
+    private static final Map<String, ScreenInfo> SCREEN_INFO = new HashMap<>();
 
     // static
     static {
@@ -32,29 +36,42 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+        // screen initialize
+        SCREEN_INFO.put("login", new ScreenInfo(1000, 650));
+        SCREEN_INFO.put("primary", new ScreenInfo(300, 300));
+        
+        
         // start here ...
-        App.newScene("login", 1000, 650, "login");
+        SettingManager.load();
+        LoginManager.login();
     }
 
-    // open new scene
-    public static void newScene(String fxml, double width, double height, String nameStage) {
-        if (stages.get(nameStage) == null) {
+    // open new scene    
+    public static void newStage(String fxml) {
+        if (stages.get(fxml) == null) {
             try {
+                ScreenInfo screen = SCREEN_INFO.get(fxml);
+                if(screen == null) {
+                    alertMessage(Alert.AlertType.ERROR, "Screen Not Found", "Error open " + "[" + fxml + "]").showAndWait();
+                    return;
+                }
+                
                 Stage newStage = new Stage();
-                newStage.setScene(new Scene(loadFXML(fxml), width, height));
-                newStage.setOnCloseRequest(event -> closeStage(nameStage));
+                newStage.setScene(new Scene(loadFXML(fxml), screen.getWidth(), screen.getHeight()));
+                newStage.setOnCloseRequest(event -> closeStage(fxml));
                 newStage.setTitle(DEFAULT_TITLE);
                 newStage.getIcons().add(appIcon);
                 newStage.setResizable(false);
                 newStage.show();
-                stages.put(nameStage, newStage);
+                stages.put(fxml, newStage);
             } catch (IOException ex) {
-                System.out.println("[OPEN NEW SCENE][" + nameStage + "][ERROR]" + ex.getMessage());
+                System.out.println("[OPEN NEW SCENE][" + fxml + "][ERROR]" + ex.getMessage());
 //                ErrorLog.writeLog(ex, "[OPEN NEW SCENE][" + nameStage + "][ERROR]");
                 alertMessage(Alert.AlertType.ERROR, "Open Scene Error!", ex.getMessage()).showAndWait();
             }
         }
     }
+    
 
     // get stage
     public static Stage getStage(String nameStage) {
