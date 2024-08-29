@@ -1,0 +1,6 @@
+.text-field {
+     -fx-background-color: white;
+     -fx-border-color: #CCC;
+     -fx-border-radius: 5;
+     -fx-background-radius: 5; 
+}

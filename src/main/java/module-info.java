@@ -6,6 +6,8 @@ module com.application.main {
     requires jbcrypt;
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
+    requires java.base;
+    requires java.sql;
 
     
     opens com.application.controllers to javafx.fxml;
