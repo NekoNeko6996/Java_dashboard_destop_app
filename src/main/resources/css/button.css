@@ -13,3 +13,7 @@
      -fx-border-radius: 5;
      -fx-text-fill: white;
 }
+
+.visible-button {
+     -fx-background-color: transparent;
+}

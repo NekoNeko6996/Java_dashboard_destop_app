@@ -21,7 +21,7 @@ public class LoginManager {
                     App.newStage("primary");
                 }
                 else {
-                    App.closeStage("login");
+                    App.newStage("login");
                 }
             });
         }

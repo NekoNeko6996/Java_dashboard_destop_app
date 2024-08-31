@@ -2,6 +2,6 @@
   "app_version": "1.0",
   "theme": "light",
   "base_api": "http://localhost:80/AdminDashboardApp/public/api",
-  "keep_login": false,
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjQ5MzM5NzIsImV4cCI6MTcyNDkzNzU3MiwiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiY3JlYXRlZF9hdCI6IjIwMjQtMDgtMjkgMTQ6MTk6MzIifX0.hlyYSLjGlUOytJCX_vRXyQeMqQlP3w2VqfjE-ty53io"
+  "keep_login": true,
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjUwNzY0ODcsImV4cCI6MTcyNTA4MDA4NywiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiY3JlYXRlZF9hdCI6IjIwMjQtMDgtMzEgMDU6NTQ6NDcifX0.Nu9cwB7xZ-8bpFjuIxpawIiTSxVFp9cuEzXra3Mevfs"
 }

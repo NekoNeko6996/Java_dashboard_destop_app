@@ -2,6 +2,7 @@ package com.application.main;
 
 import com.application.models.ScreenInfo;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,9 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -20,6 +19,7 @@ public class App extends Application {
 
     // public
     public static Gson gson = new Gson();
+    public static Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
     public static final String DEFAULT_TITLE = "App";
     
     // private
@@ -38,7 +38,7 @@ public class App extends Application {
     public void start(Stage stage) {
         // screen initialize
         SCREEN_INFO.put("login", new ScreenInfo(1000, 650));
-        SCREEN_INFO.put("primary", new ScreenInfo(300, 300));
+        SCREEN_INFO.put("primary", new ScreenInfo(1400, 800));
         
         
         // start here ...
@@ -104,6 +104,14 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
+    
+    
+    public static FXMLLoader loadFXMLToLoader(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+    
+    
 
     public static Alert alertMessage(Alert.AlertType alertType, String headerContent, String content) {
         Alert alert = new Alert(alertType);

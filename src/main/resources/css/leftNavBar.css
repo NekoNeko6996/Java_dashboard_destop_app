@@ -1,0 +1,25 @@
+.pane-nav {
+     -fx-background-color: white;
+     -fx-background-radius: 10;
+}
+
+.pane-nav-header {
+     -fx-border-color: #CCC;
+     -fx-border-width: 0 0 1 0;
+}
+
+.pane-nav-button-hover:hover {
+     -fx-background-color: #EEE;
+}
+
+.pane-nav-button {
+     -fx-background-color: transparent;
+     -fx-border-color: transparent;
+     -fx-border-width: 0 0 0 4;
+}
+
+.pane-nav-button-selected {
+     -fx-background-color: #EEE;
+     -fx-border-color: #F95C9A;
+     -fx-border-width: 0 0 0 4;
+}

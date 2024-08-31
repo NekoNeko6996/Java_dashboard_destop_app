@@ -13,6 +13,7 @@ module com.application.main {
     opens com.application.controllers to javafx.fxml;
     opens com.application.main to javafx.fxml;
     opens com.application.models to javafx.base, gson;
+    opens com.application.models.weather to javafx.base, gson;
     
     
     exports com.application.main;

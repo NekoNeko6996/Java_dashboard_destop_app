@@ -4,6 +4,7 @@ package com.application.controllers;
 import com.application.main.App;
 import com.application.main.Http;
 import com.application.main.LoginManager;
+import com.application.main.SettingManager;
 import com.application.models.HttpResponse;
 import com.application.models.LoginForm;
 import javafx.event.ActionEvent;
@@ -35,6 +36,12 @@ public class LoginController {
             
             if(response_.getStatus().equals("success") && response_.getMessage().equals("Login Successful") && !response_.getToken().isEmpty()) {
                 LoginManager.setToken(response_.getToken());
+                
+                if(keepLogin.isSelected()) {
+                    SettingManager.data.setToken(response_.getToken());
+                    SettingManager.data.setKeep_login(true);
+                    SettingManager.save();
+                }
                 
                 App.newStage("primary");
                 App.closeStage("login");

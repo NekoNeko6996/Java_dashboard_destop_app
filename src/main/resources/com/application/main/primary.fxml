@@ -1,16 +1,232 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.PrimaryController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" styleClass="primary-screen-pane" stylesheets="@../../../css/screen.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.PrimaryController">
    <children>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" onAction="#switchToSecondary" text="Switch to Secondary View" />
+      <ScrollPane fx:id="homeScrollPaneContainer" layoutX="220.0" layoutY="60.0" prefHeight="740.0" prefWidth="1160.0" styleClass="scroll-pane-container" stylesheets="@../../../css/scrollPaneContainer.css" translateX="20.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1145.0">
+               <children>
+                  <Pane prefHeight="215.0" prefWidth="1145.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="20.0" styleClass="label-title" text="Weather" textFill="#6b6b6b">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <FlowPane fx:id="weatherHomeFlowPane" layoutX="-6.0" layoutY="61.0" prefHeight="140.0" prefWidth="830.0" style="-fx-background-color: #CCC;" translateX="20.0" />
+                        <Pane layoutX="886.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="245.0" style="-fx-border-color: #777; -fx-border-style: dashed; -fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5;">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="Tomorrow">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="weatherHomeTomorrowIcon" fitHeight="80.0" fitWidth="80.0" layoutX="151.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/cloudy.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="weatherHomeTomorrowTemperature" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="41.0" prefHeight="50.0" prefWidth="50.0" text="0" textFill="#ff6f00">
+                                 <font>
+                                    <Font name="System Bold" size="40.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="64.0" layoutY="49.0" text="°C" textFill="#ff6f00">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="99.0" text="Ap temp(°C)">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="118.0" text="Rainfall Rate(%)">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="weatherHomeTomorrowApparentTemperature" alignment="CENTER_RIGHT" layoutX="107.0" layoutY="99.0" prefHeight="17.0" prefWidth="25.0" text="0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="weatherHomeTomorrowRain" alignment="CENTER_RIGHT" layoutX="107.0" layoutY="118.0" prefHeight="13.0" prefWidth="25.0" text="0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="148.0" layoutY="118.0" text="UV(max)">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="weatherHomeTomorrowUV" alignment="CENTER_RIGHT" layoutX="203.0" layoutY="118.0" prefHeight="17.0" prefWidth="30.0" text="0" />
+                              <Label layoutX="148.0" layoutY="99.0" text="Wind Sp">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="weatherHomeTomorrowWind" alignment="CENTER_RIGHT" layoutX="203.0" layoutY="99.0" prefHeight="17.0" prefWidth="30.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Button layoutX="1056.0" layoutY="20.0" mnemonicParsing="false" onAction="#onClickWeatherHomeMoreInfo" styleClass="confirm-button" stylesheets="@../../../css/button.css" text="More Info">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children></Pane>
+                  <Pane layoutY="235.0" prefHeight="200.0" prefWidth="1145.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0" />
+                  <Pane layoutY="455.0" prefHeight="300.0" prefWidth="670.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0">
+                     <children>
+                        <Pane prefHeight="50.0" prefWidth="670.0" styleClass="header">
+                           <children>
+                              <Label layoutX="14.0" layoutY="12.0" text="Container">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="50.0" prefHeight="250.0" prefWidth="670.0" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Pane prefHeight="60.0" prefWidth="1400.0" styleClass="top-nav-pane" stylesheets="@../../../css/topNavBar.css">
+         <children>
+            <Label layoutX="14.0" layoutY="17.0" text="Personal Management" textFill="#5e5e5e">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="450.0" layoutY="13.0" prefHeight="35.0" prefWidth="500.0" promptText="Search some thing ..." stylesheets="@../../../css/inputTextField.css">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+            <Line endX="-100.0" endY="30.0" layoutX="1361.0" layoutY="15.0" startX="-100.0" />
+         </children>
+      </Pane>
+      <Pane layoutY="60.0" prefHeight="700.0" prefWidth="200.0" styleClass="pane-nav" stylesheets="@../../../css/leftNavBar.css" translateX="20.0" translateY="20.0">
+         <children>
+            <Pane prefHeight="60.0" prefWidth="200.0" styleClass="pane-nav-header">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../default/user-avatar/default.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="54.0" layoutY="21.0" text="Nguyễn Hoàng Nam" translateX="5.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
+               <graphic>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/dashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </graphic>
+               <styleClass>
+                  <String fx:value="pane-nav-button-selected" />
+                  <String fx:value="pane-nav-button-hover" />
+               </styleClass>
+            </Button>
+            <Button layoutY="110.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
+               <graphic>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/dashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </graphic>
+               <styleClass>
+                  <String fx:value="pane-nav-button" />
+                  <String fx:value="pane-nav-button-hover" />
+               </styleClass>
+            </Button>
+            <Button layoutY="160.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
+               <graphic>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/dashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </graphic>
+               <styleClass>
+                  <String fx:value="pane-nav-button" />
+                  <String fx:value="pane-nav-button-hover" />
+               </styleClass>
+            </Button>
+            <Button layoutY="210.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
+               <graphic>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/dashboard.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </graphic>
+               <styleClass>
+                  <String fx:value="pane-nav-button" />
+                  <String fx:value="pane-nav-button-hover" />
+               </styleClass>
+            </Button>
+         </children>
+      </Pane>
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</Pane>

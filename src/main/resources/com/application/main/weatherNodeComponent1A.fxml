@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="150.0" style="-fx-border-color: #777; -fx-border-style: dashed;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.WeatherNodeComponent1A">
+   <children>
+      <Label fx:id="time" layoutX="14.0" layoutY="14.0" text="11:23">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="icon" fitHeight="40.0" fitWidth="40.0" layoutX="96.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../icons/cloudy.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="temperature" layoutX="14.0" layoutY="41.0" prefHeight="50.0" prefWidth="50.0" text="35" textFill="#ff6f00">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="64.0" layoutY="49.0" text="°C" textFill="#ff6f00">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="99.0" text="Humidity(%)">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="118.0" text="Rainfall Rate(%)" />
+      <Label fx:id="humidity" alignment="CENTER_RIGHT" layoutX="110.0" layoutY="99.0" prefHeight="17.0" prefWidth="25.0" text="63">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="rain" alignment="CENTER_RIGHT" layoutX="110.0" layoutY="118.0" prefHeight="13.0" prefWidth="25.0" text="42" />
+   </children>
+</Pane>
