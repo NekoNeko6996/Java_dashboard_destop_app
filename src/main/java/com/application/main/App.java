@@ -39,7 +39,7 @@ public class App extends Application {
         // screen initialize
         SCREEN_INFO.put("login", new ScreenInfo(1000, 650));
         SCREEN_INFO.put("primary", new ScreenInfo(1400, 800));
-        
+        SCREEN_INFO.put("weatherNodeComponent1A", new ScreenInfo(150, 140));
         
         // start here ...
         SettingManager.load();
@@ -108,7 +108,7 @@ public class App extends Application {
     
     public static FXMLLoader loadFXMLToLoader(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        return fxmlLoader;
     }
     
     

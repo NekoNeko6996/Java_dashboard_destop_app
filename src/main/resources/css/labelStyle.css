@@ -1,0 +1,5 @@
+.label-border-normal {
+	-fx-border-color: #DDD;
+	-fx-border-radius: 5;
+	-fx-text-fill: #777;
+}

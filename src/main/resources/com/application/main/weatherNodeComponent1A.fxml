@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="150.0" style="-fx-border-color: #777; -fx-border-style: dashed;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.WeatherNodeComponent1A">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="150.0" style="-fx-border-color: #777; -fx-border-radius: 5; -fx-border-style: dashed; -fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="time" layoutX="14.0" layoutY="14.0" text="11:23">
          <font>
@@ -16,7 +15,7 @@
       </Label>
       <ImageView fx:id="icon" fitHeight="40.0" fitWidth="40.0" layoutX="96.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../icons/cloudy.png" />
+            <Image url="@../../../icons/sun_cloudy.png" />
          </image>
       </ImageView>
       <Label fx:id="temperature" layoutX="14.0" layoutY="41.0" prefHeight="50.0" prefWidth="50.0" text="35" textFill="#ff6f00">

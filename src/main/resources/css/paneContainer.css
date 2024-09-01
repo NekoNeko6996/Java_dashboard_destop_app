@@ -3,7 +3,7 @@
      -fx-background-radius: 10;
 }
 
-.pane-container > .label-title {
+.pane-container > .label-container-title {
      -fx-text-fill: #6B6B6B;
 }
 

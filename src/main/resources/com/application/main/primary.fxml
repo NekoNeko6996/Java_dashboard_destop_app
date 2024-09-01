@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -21,12 +23,12 @@
                <children>
                   <Pane prefHeight="215.0" prefWidth="1145.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="20.0" styleClass="label-title" text="Weather" textFill="#6b6b6b">
+                        <Label layoutX="14.0" layoutY="20.0" styleClass="label-container-title" text="Weather" textFill="#6b6b6b">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <FlowPane fx:id="weatherHomeFlowPane" layoutX="-6.0" layoutY="61.0" prefHeight="140.0" prefWidth="830.0" style="-fx-background-color: #CCC;" translateX="20.0" />
+                        <FlowPane fx:id="weatherHomeFlowPane" layoutX="-6.0" layoutY="61.0" prefHeight="140.0" prefWidth="830.0" translateX="20.0" />
                         <Pane layoutX="886.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="245.0" style="-fx-border-color: #777; -fx-border-style: dashed; -fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5;">
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" text="Tomorrow">
@@ -36,7 +38,7 @@
                               </Label>
                               <ImageView fx:id="weatherHomeTomorrowIcon" fitHeight="80.0" fitWidth="80.0" layoutX="151.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../icons/cloudy.png" />
+                                    <Image url="@../../../icons/sun_cloudy.png" />
                                  </image>
                               </ImageView>
                               <Label fx:id="weatherHomeTomorrowTemperature" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="41.0" prefHeight="50.0" prefWidth="50.0" text="0" textFill="#ff6f00">
@@ -54,36 +56,56 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="14.0" layoutY="118.0" text="Rainfall Rate(%)">
+                              <Label layoutX="14.0" layoutY="118.0" text="Rain Rate(%)">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="weatherHomeTomorrowApparentTemperature" alignment="CENTER_RIGHT" layoutX="107.0" layoutY="99.0" prefHeight="17.0" prefWidth="25.0" text="0">
+                              <Label fx:id="weatherHomeTomorrowApparentTemperature" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="99.0" prefHeight="17.0" prefWidth="30.0" text="0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="weatherHomeTomorrowRain" alignment="CENTER_RIGHT" layoutX="107.0" layoutY="118.0" prefHeight="13.0" prefWidth="25.0" text="0">
+                              <Label fx:id="weatherHomeTomorrowRain" alignment="CENTER_RIGHT" layoutX="87.0" layoutY="118.0" prefHeight="17.0" prefWidth="30.0" text="45">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="148.0" layoutY="118.0" text="UV(max)">
+                              <Label layoutX="139.0" layoutY="118.0" text="UV(max)">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="weatherHomeTomorrowUV" alignment="CENTER_RIGHT" layoutX="203.0" layoutY="118.0" prefHeight="17.0" prefWidth="30.0" text="0" />
-                              <Label layoutX="148.0" layoutY="99.0" text="Wind Sp">
+                              <Label fx:id="weatherHomeTomorrowUV" alignment="CENTER_RIGHT" layoutX="196.0" layoutY="118.0" prefHeight="17.0" prefWidth="35.0" text="0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <Label layoutX="139.0" layoutY="99.0" text="Wind Sp">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="weatherHomeTomorrowWind" alignment="CENTER_RIGHT" layoutX="203.0" layoutY="99.0" prefHeight="17.0" prefWidth="30.0" text="0" />
+                              <Label fx:id="weatherHomeTomorrowWind" alignment="CENTER_RIGHT" layoutX="196.0" layoutY="99.0" prefHeight="17.0" prefWidth="35.0" text="0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
                            </children>
                         </Pane>
                         <Button layoutX="1056.0" layoutY="20.0" mnemonicParsing="false" onAction="#onClickWeatherHomeMoreInfo" styleClass="confirm-button" stylesheets="@../../../css/button.css" text="More Info">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Line endX="-100.0" endY="100.0" layoutX="965.0" layoutY="81.0" startX="-100.0" stroke="#363636" />
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="708.0" layoutY="20.0" prefHeight="28.0" prefWidth="225.0" styleClass="label-border-normal" stylesheets="@../../../css/labelStyle.css" text="Cay Duong, Hau Giang, VietNam" translateX="-10.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </padding>
+                        </Label>
+                        <Button layoutX="943.0" layoutY="20.0" mnemonicParsing="false" onAction="#onClickWeatherHomeMoreInfo" styleClass="confirm-button" stylesheets="@../../../css/button.css" text="Change Location" translateX="-10.0">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -126,16 +148,12 @@
          <children>
             <Pane prefHeight="60.0" prefWidth="200.0" styleClass="pane-nav-header">
                <children>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../default/user-avatar/default.png" />
-                     </image>
-                  </ImageView>
                   <Label layoutX="54.0" layoutY="21.0" text="Nguyễn Hoàng Nam" translateX="5.0">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
+                  <Circle fx:id="userAvatarCircle" fill="#d3d3d3" layoutX="34.0" layoutY="30.0" radius="20.0" stroke="#d0d0d0" strokeType="INSIDE" />
                </children>
             </Pane>
             <Button layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
