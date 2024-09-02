@@ -2,9 +2,12 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -79,7 +82,8 @@
                               <Label fx:id="weatherHomeTomorrowUV" alignment="CENTER_RIGHT" layoutX="196.0" layoutY="118.0" prefHeight="17.0" prefWidth="35.0" text="0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
-                                 </font></Label>
+                                 </font>
+                              </Label>
                               <Label layoutX="139.0" layoutY="99.0" text="Wind Sp">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -88,7 +92,8 @@
                               <Label fx:id="weatherHomeTomorrowWind" alignment="CENTER_RIGHT" layoutX="196.0" layoutY="99.0" prefHeight="17.0" prefWidth="35.0" text="0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
-                                 </font></Label>
+                                 </font>
+                              </Label>
                            </children>
                         </Pane>
                         <Button layoutX="1056.0" layoutY="20.0" mnemonicParsing="false" onAction="#onClickWeatherHomeMoreInfo" styleClass="confirm-button" stylesheets="@../../../css/button.css" text="More Info">
@@ -110,9 +115,346 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                     </children></Pane>
-                  <Pane layoutY="235.0" prefHeight="200.0" prefWidth="1145.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0" />
-                  <Pane layoutY="455.0" prefHeight="300.0" prefWidth="670.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0">
+                     </children>
+                  </Pane>
+                  <Pane layoutY="235.0" prefHeight="60.0" prefWidth="1145.0" translateY="20.0">
+                     <children>
+                        <Pane prefHeight="60.0" prefWidth="330.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css">
+                           <children>
+                              <Label layoutX="14.0" layoutY="17.0" styleClass="label-container-title" text="Your Notes" textFill="#6b6b6b">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="237.0" layoutY="15.0" mnemonicParsing="false" onAction="#onClickWeatherHomeMoreInfo" prefHeight="30.0" styleClass="confirm-button" stylesheets="@../../../css/button.css" text="View More">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="205.0" layoutY="15.0" mnemonicParsing="false" onAction="#onClickWeatherHomeMoreInfo" styleClass="normal-button-no-border" stylesheets="@../../../css/button.css" translateX="-10.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/post.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <FlowPane hgap="10.0" layoutY="315.0" prefHeight="300.0" prefWidth="1145.0" translateY="10.0">
+                     <children>
+                        <Pane prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #F95C9A; -fx-border-width: 0 0 3 0;">
+                           <children>
+                              <Pane prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: #F95C9A; -fx-border-width: 2; -fx-border-radius: 5;" translateX="10.0" translateY="10.0">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/birthday-cake.png" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                              <FlowPane hgap="5.0" layoutY="64.0" prefHeight="35.0" prefWidth="350.0">
+                                 <children>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label alignment="CENTER" prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="3 more ...">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </padding>
+                              </FlowPane>
+                              <TextArea editable="false" layoutX="10.0" layoutY="134.0" prefHeight="160.0" prefWidth="330.0" promptText="content ..." style="-fx-background-color: white;" stylesheets="@../../../css/tranparentTextArea.css" text="- Content line 1&#10;- Content line 2&#10;==========&#10;+ Task 01&#10;+ Task 02&#10;==========">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </TextArea>
+                              <Label layoutY="99.0" prefHeight="35.0" prefWidth="350.0" text="This Is Title">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label layoutX="115.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" text="12 Share">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="60.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" translateX="20.0">
+                                 <image>
+                                    <Image url="@../../../icons/team.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="115.0" layoutY="34.0" prefHeight="25.0" prefWidth="155.0" text="12 September 2024">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="80.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/calendar.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="286.0" layoutY="10.0" mnemonicParsing="false" styleClass="visible-button" stylesheets="@../../../css/button.css" translateX="-15.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/pin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </Button>
+                              <Button layoutX="318.0" layoutY="10.0" mnemonicParsing="false" styleClass="visible-button" stylesheets="@../../../css/button.css" translateX="-10.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/option.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #F95C9A; -fx-border-width: 0 0 3 0;">
+                           <children>
+                              <Pane prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: #F95C9A; -fx-border-width: 2; -fx-border-radius: 5;" translateX="10.0" translateY="10.0">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/birthday-cake.png" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                              <FlowPane hgap="5.0" layoutY="64.0" prefHeight="35.0" prefWidth="350.0">
+                                 <children>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label alignment="CENTER" prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="3 more ...">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </padding>
+                              </FlowPane>
+                              <TextArea editable="false" layoutX="10.0" layoutY="134.0" prefHeight="160.0" prefWidth="330.0" promptText="content ..." style="-fx-background-color: white;" stylesheets="@../../../css/tranparentTextArea.css" text="- Content line 1&#10;- Content line 2&#10;==========&#10;+ Task 01&#10;+ Task 02&#10;==========">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </TextArea>
+                              <Label layoutY="99.0" prefHeight="35.0" prefWidth="350.0" text="This Is Title">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label layoutX="115.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" text="12 Share">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="60.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" translateX="20.0">
+                                 <image>
+                                    <Image url="@../../../icons/team.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="115.0" layoutY="34.0" prefHeight="25.0" prefWidth="155.0" text="12 September 2024">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="80.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/calendar.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="286.0" layoutY="10.0" mnemonicParsing="false" styleClass="visible-button" stylesheets="@../../../css/button.css" translateX="-15.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/pin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </Button>
+                              <Button layoutX="318.0" layoutY="10.0" mnemonicParsing="false" styleClass="visible-button" stylesheets="@../../../css/button.css" translateX="-10.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/option.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #F95C9A; -fx-border-width: 0 0 3 0;">
+                           <children>
+                              <Pane prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: #F95C9A; -fx-border-width: 2; -fx-border-radius: 5;" translateX="10.0" translateY="10.0">
+                                 <children>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/birthday-cake.png" />
+                                       </image>
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                              <FlowPane hgap="5.0" layoutY="64.0" prefHeight="35.0" prefWidth="350.0">
+                                 <children>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="this is tag">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label alignment="CENTER" prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="3 more ...">
+                                       <padding>
+                                          <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </padding>
+                              </FlowPane>
+                              <TextArea editable="false" layoutX="10.0" layoutY="134.0" prefHeight="160.0" prefWidth="330.0" promptText="content ..." style="-fx-background-color: white;" stylesheets="@../../../css/tranparentTextArea.css" text="- Content line 1&#10;- Content line 2&#10;==========&#10;+ Task 01&#10;+ Task 02&#10;==========">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </TextArea>
+                              <Label layoutY="99.0" prefHeight="35.0" prefWidth="350.0" text="This Is Title">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label layoutX="115.0" layoutY="7.0" prefHeight="25.0" prefWidth="120.0" text="12 Share">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="60.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" translateX="20.0">
+                                 <image>
+                                    <Image url="@../../../icons/team.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="115.0" layoutY="34.0" prefHeight="25.0" prefWidth="155.0" text="12 September 2024">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="80.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/calendar.png" />
+                                 </image>
+                              </ImageView>
+                              <Button layoutX="286.0" layoutY="10.0" mnemonicParsing="false" styleClass="visible-button" stylesheets="@../../../css/button.css" translateX="-15.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/pin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </Button>
+                              <Button layoutX="318.0" layoutY="10.0" mnemonicParsing="false" styleClass="visible-button" stylesheets="@../../../css/button.css" translateX="-10.0">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../icons/option.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </FlowPane>
+                  <Pane layoutY="625.0" prefHeight="300.0" prefWidth="670.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0">
                      <children>
                         <Pane prefHeight="50.0" prefWidth="670.0" styleClass="header">
                            <children>
@@ -137,11 +479,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="450.0" layoutY="13.0" prefHeight="35.0" prefWidth="500.0" promptText="Search some thing ..." stylesheets="@../../../css/inputTextField.css">
+            <TextField fx:id="topNavSearchBar" layoutX="450.0" layoutY="13.0" prefHeight="35.0" prefWidth="500.0" promptText="Type / to search ..." stylesheets="@../../../css/inputTextField.css">
                <font>
                   <Font size="14.0" />
                </font></TextField>
             <Line endX="-100.0" endY="30.0" layoutX="1361.0" layoutY="15.0" startX="-100.0" />
+            <Circle fx:id="userAvatarCircleTopNav" fill="#d3d3d3" layoutX="1366.0" layoutY="31.0" radius="20.0" stroke="#d0d0d0" strokeType="INSIDE" />
          </children>
       </Pane>
       <Pane layoutY="60.0" prefHeight="700.0" prefWidth="200.0" styleClass="pane-nav" stylesheets="@../../../css/leftNavBar.css" translateX="20.0" translateY="20.0">

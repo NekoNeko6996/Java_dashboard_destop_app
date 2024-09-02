@@ -9,6 +9,7 @@ import com.application.models.LoginForm;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -49,6 +50,8 @@ public class LoginController {
 
                 App.newStage("primary");
                 App.closeStage("login");
+            } else {
+                App.alertMessage(Alert.AlertType.INFORMATION, "Login failed", response_.getMessage()).showAndWait();
             }
         });
     }

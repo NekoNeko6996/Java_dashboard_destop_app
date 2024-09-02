@@ -6,6 +6,14 @@
      -fx-text-fill: black;
 }
 
+.normal-button-no-border {
+     -fx-background-color: white;
+     -fx-border-color: white;
+     -fx-background-radius: 5;
+     -fx-border-radius: 5;
+     -fx-text-fill: black;
+}
+
 .confirm-button {
      -fx-background-color: #F95C9A;
      -fx-border-color: #F95C9A;
@@ -13,6 +21,15 @@
      -fx-border-radius: 5;
      -fx-text-fill: white;
 }
+
+.confirm-button-border {
+     -fx-background-color: white;
+     -fx-border-color: #F95C9A;
+     -fx-background-radius: 5;
+     -fx-border-radius: 5;
+     -fx-text-fill: white;
+}
+
 
 .visible-button {
      -fx-background-color: transparent;

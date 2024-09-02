@@ -65,6 +65,7 @@ public class App extends Application {
                 newStage.show();
                 stages.put(fxml, newStage);
             } catch (IOException ex) {
+                ex.printStackTrace();
                 System.out.println("[OPEN NEW SCENE][" + fxml + "][ERROR]" + ex.getMessage());
 //                ErrorLog.writeLog(ex, "[OPEN NEW SCENE][" + nameStage + "][ERROR]");
                 alertMessage(Alert.AlertType.ERROR, "Open Scene Error!", ex.getMessage()).showAndWait();
