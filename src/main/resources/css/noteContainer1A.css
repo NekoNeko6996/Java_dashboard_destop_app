@@ -1,0 +1,12 @@
+.note-icon-pane {
+	-fx-border-color: #1890FF;
+	-fx-border-width: 2;
+	-fx-border-radius: 5;	
+}
+
+.note-pane-container {
+	-fx-background-color: white;
+	-fx-background-radius: 5;
+	-fx-border-color: #1890FF;
+	-fx-border-width: 0 0 3 0;
+}

@@ -7,26 +7,40 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class PrimaryController {
-
+    //
+    private Map<String, ScrollPane> appTabList = new HashMap<>();
+    
+    //
     @FXML
     private ScrollPane homeScrollPaneContainer;
+    @FXML
+    private ScrollPane otherScrollPaneContainer;
 
-    // nav
+    // left nav
+    @FXML
+    private Pane leftNavBtnListContainer;
+
+    // top nav
     @FXML
     private TextField topNavSearchBar;
 
@@ -58,28 +72,64 @@ public class PrimaryController {
     @FXML
     private Label weatherHomeTomorrowWind;
 
+    @FXML
+    private ImageView weatherTomorrowSkeleton;
+
     //
     @FXML
-    void onClickWeatherHomeMoreInfo(ActionEvent event) {
+    private void onClickWeatherHomeMoreInfo(ActionEvent event) {
 
+    }
+    
+    @FXML
+    private void onClickCreateNewNote() {
+        App.newStage("createNewNote");
+    }
+
+    @FXML
+    private void onClickChangePage(ActionEvent event) {
+        // Reset all buttons to their default styles
+        for (Node btn : leftNavBtnListContainer.getChildren()) {
+            if (btn instanceof Button) {
+                Button b = (Button) btn;
+                
+                b.getStyleClass().remove("pane-nav-button-selected");
+                b.getStyleClass().add("pane-nav-button");
+                b.getStyleClass().add( "pane-nav-button-hover");
+                appTabList.get(b.getId()).setManaged(false);
+                appTabList.get(b.getId()).setVisible(false);
+            }
+        }
+
+        // Highlight the clicked button
+        Button clickedButton = (Button) event.getSource();
+        clickedButton.getStyleClass().remove("pane-nav-button");
+        clickedButton.getStyleClass().remove("pane-nav-button-hover");
+        clickedButton.getStyleClass().setAll("pane-nav-button-selected");
+        appTabList.get(clickedButton.getId()).setManaged(true);
+        appTabList.get(clickedButton.getId()).setVisible(true);
+    }
+
+    public void setManagedNavTag(ScrollPane open, List<ScrollPane> scrollPaneList) {
+        
     }
 
     //
     public void initialize() {
-        // load weather
-        WeatherManager.load(10.15, 105.1833, (Weather data) -> {
-            System.out.println("da" + data.getDaily().getWind_direction_10m_dominant().get(1));
-            loadHomeWeatherNodeTomorrow(data);
-
-            loadHomeWeatherNode(data);
-        });
         
+        //load weather
+        loadWeatherData();
+
         // load avatar
         loadUserAvatar("https://i.imgur.com/vji8rWQ.png");
 
         // sau khi load scene xong 
         Platform.runLater(() -> {
             topNavSearchBarInit();
+            
+            //
+            appTabList.put("home-button", homeScrollPaneContainer);
+            appTabList.put("other-button", otherScrollPaneContainer);
         });
     }
 
@@ -92,7 +142,6 @@ public class PrimaryController {
                     topNavSearchBar.requestFocus();
                     topNavSearchBar.positionCaret(topNavSearchBar.getText().length());
                 }
-                System.out.println(keyName);
             });
 
             primaryStage.requestFocus();
@@ -119,6 +168,19 @@ public class PrimaryController {
         };
 
         new Thread(loadImg).start();
+    }
+
+    public void loadWeatherData() {
+        weatherTomorrowSkeleton.setVisible(true);
+        weatherTomorrowSkeleton.setManaged(true);
+
+        // load weather
+        WeatherManager.load(10.15, 105.1833, (Weather data) -> {
+            System.out.println("da" + data.getDaily().getWind_direction_10m_dominant().get(1));
+            loadHomeWeatherNodeTomorrow(data);
+
+            loadHomeWeatherNode(data);
+        });
     }
 
     public static int findTimeIndex(List<String> timeList, LocalDateTime currentTime) {
@@ -182,5 +244,9 @@ public class PrimaryController {
 
         //
         weatherHomeTomorrowIcon.setImage(new Image(getClass().getResource(WeatherStatus.getWeatherStatus(data.getDaily().getPrecipitation_probability_max().get(1))).toString()));
+
+        //
+        weatherTomorrowSkeleton.setVisible(false);
+        weatherTomorrowSkeleton.setManaged(false);
     }
 }

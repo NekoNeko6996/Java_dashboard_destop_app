@@ -8,6 +8,9 @@ module com.application.main {
     requires org.apache.httpcomponents.httpcore;
     requires java.base;
     requires java.sql;
+    requires org.fxmisc.richtext;
+    requires org.fxmisc.flowless;
+    requires org.fxmisc.undo;
 
     
     opens com.application.controllers to javafx.fxml;

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -115,6 +114,11 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
+                        <ImageView fx:id="weatherTomorrowSkeleton" fitHeight="140.0" fitWidth="245.0" layoutX="886.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/weatherTomorrowSkeleton.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                   <Pane layoutY="235.0" prefHeight="60.0" prefWidth="1145.0" translateY="20.0">
@@ -131,14 +135,14 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="205.0" layoutY="15.0" mnemonicParsing="false" onAction="#onClickWeatherHomeMoreInfo" styleClass="normal-button-no-border" stylesheets="@../../../css/button.css" translateX="-10.0">
+                              <Button layoutX="205.0" layoutY="15.0" mnemonicParsing="false" onAction="#onClickCreateNewNote" styleClass="normal-button-no-border" stylesheets="@../../../css/button.css" translateX="-10.0">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../icons/post.png" />
+                                          <Image url="@../../../icons/add.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -152,9 +156,9 @@
                   </Pane>
                   <FlowPane hgap="10.0" layoutY="315.0" prefHeight="300.0" prefWidth="1145.0" translateY="10.0">
                      <children>
-                        <Pane prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #F95C9A; -fx-border-width: 0 0 3 0;">
+                        <Pane prefHeight="300.0" prefWidth="350.0" styleClass="note-pane-container" stylesheets="@../../../css/noteContainer1A.css">
                            <children>
-                              <Pane prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: #F95C9A; -fx-border-width: 2; -fx-border-radius: 5;" translateX="10.0" translateY="10.0">
+                              <Pane prefHeight="50.0" prefWidth="50.0" styleClass="note-icon-pane" translateX="10.0" translateY="10.0">
                                  <children>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -252,9 +256,9 @@
                               </Button>
                            </children>
                         </Pane>
-                        <Pane prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #F95C9A; -fx-border-width: 0 0 3 0;">
+                        <Pane prefHeight="300.0" prefWidth="350.0" styleClass="note-pane-container" stylesheets="@../../../css/noteContainer1A.css">
                            <children>
-                              <Pane prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: #F95C9A; -fx-border-width: 2; -fx-border-radius: 5;" translateX="10.0" translateY="10.0">
+                              <Pane prefHeight="50.0" prefWidth="50.0" styleClass="note-icon-pane" translateX="10.0" translateY="10.0">
                                  <children>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -352,9 +356,9 @@
                               </Button>
                            </children>
                         </Pane>
-                        <Pane prefHeight="300.0" prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #F95C9A; -fx-border-width: 0 0 3 0;">
+                        <Pane prefHeight="300.0" prefWidth="350.0" styleClass="note-pane-container" stylesheets="@../../../css/noteContainer1A.css">
                            <children>
-                              <Pane prefHeight="50.0" prefWidth="50.0" style="-fx-border-color: #F95C9A; -fx-border-width: 2; -fx-border-radius: 5;" translateX="10.0" translateY="10.0">
+                              <Pane prefHeight="50.0" prefWidth="50.0" styleClass="note-icon-pane" translateX="10.0" translateY="10.0">
                                  <children>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -472,6 +476,15 @@
             </AnchorPane>
          </content>
       </ScrollPane>
+      <ScrollPane fx:id="otherScrollPaneContainer" layoutX="240.0" layoutY="60.0" prefHeight="740.0" prefWidth="1160.0" styleClass="scroll-pane-container" stylesheets="@../../../css/scrollPaneContainer.css" visible="false">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1150.0" visible="false">
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="1150.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
       <Pane prefHeight="60.0" prefWidth="1400.0" styleClass="top-nav-pane" stylesheets="@../../../css/topNavBar.css">
          <children>
             <Label layoutX="14.0" layoutY="17.0" text="Personal Management" textFill="#5e5e5e">
@@ -499,94 +512,52 @@
                   <Circle fx:id="userAvatarCircle" fill="#d3d3d3" layoutX="34.0" layoutY="30.0" radius="20.0" stroke="#d0d0d0" strokeType="INSIDE" />
                </children>
             </Pane>
-            <Button layoutY="60.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
-               <graphic>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../icons/dashboard.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </graphic>
-               <styleClass>
-                  <String fx:value="pane-nav-button-selected" />
-                  <String fx:value="pane-nav-button-hover" />
-               </styleClass>
-            </Button>
-            <Button layoutY="110.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
-               <graphic>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../icons/dashboard.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </graphic>
-               <styleClass>
-                  <String fx:value="pane-nav-button" />
-                  <String fx:value="pane-nav-button-hover" />
-               </styleClass>
-            </Button>
-            <Button layoutY="160.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
-               <graphic>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../icons/dashboard.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </graphic>
-               <styleClass>
-                  <String fx:value="pane-nav-button" />
-                  <String fx:value="pane-nav-button-hover" />
-               </styleClass>
-            </Button>
-            <Button layoutY="210.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0">
-               <graphic>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../icons/dashboard.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="46.0" layoutY="11.0" text="Home ">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </graphic>
-               <styleClass>
-                  <String fx:value="pane-nav-button" />
-                  <String fx:value="pane-nav-button-hover" />
-               </styleClass>
-            </Button>
+            <Pane fx:id="leftNavBtnListContainer" layoutY="60.0" prefHeight="250.0" prefWidth="200.0">
+               <children>
+                  <Button id="home-button" alignment="CENTER" mnemonicParsing="false" onAction="#onClickChangePage" prefHeight="50.0" prefWidth="200.0" styleClass="pane-nav-button-selected">
+                     <graphic>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/dashboard.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="60.0" layoutY="16.0" text="Home ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </graphic>
+                     <padding>
+                        <Insets top="-1.0" />
+                     </padding>
+                  </Button>
+                  <Button id="other-button" alignment="CENTER" layoutY="50.0" mnemonicParsing="false" onAction="#onClickChangePage" prefHeight="50.0" prefWidth="200.0" styleClass="pane-nav-button">
+                     <graphic>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/dashboard.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="60.0" layoutY="16.0" text="Page 1">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </graphic>
+                     <padding>
+                        <Insets top="-1.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
