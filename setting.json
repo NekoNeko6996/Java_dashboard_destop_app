@@ -3,5 +3,5 @@
   "theme": "light",
   "base_api": "http://localhost:80/AdminDashboardApp/public/api",
   "keep_login": true,
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjU0MjUwNTUsImV4cCI6MTcyNTQyODY1NSwiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiY3JlYXRlZF9hdCI6IjIwMjQtMDktMDQgMDY6NDQ6MTUifX0.7uqklB3_Ve0gIKP7e8_6PV3oRg1dP0W6cumKoWGnBIU"
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjU1MjEwODgsImV4cCI6MTcyNTUyNDY4OCwiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiY3JlYXRlZF9hdCI6IjIwMjQtMDktMDUgMDk6MjQ6NDgifX0.OkuGN64fGSCjc8fqjNpl5oYRKiWiuXQbmFklejt4rCc"
 }

@@ -1,27 +1,31 @@
 package com.application.controllers;
 
+import com.application.main.CssManager;
+import com.application.main.TextFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
 import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
+import javafx.scene.web.WebView;
 
 public class CreateNewNoteController {
 
     //
     private final StyleClassedTextArea styledTextArea = new StyleClassedTextArea();
 
+    @FXML
+    private WebView web;
+
     //
     @FXML
-    private VBox noteArea;
+    private Pane noteArea;
     @FXML
     private ComboBox<String> fontSize;
     @FXML
@@ -47,16 +51,24 @@ public class CreateNewNoteController {
         toggleStyle("underline", fontSize.getValue());
     }
 
+    @FXML
+    private void onSaveNote() {
+        TextFormat.converToStyleClassedTextArea(styledTextArea, "[{\"text\":\"He\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":0,\"end\":2},{\"text\":\"llo Th\",\"bold\":true,\"italic\":true,\"underline\":false,\"fontSize\":15,\"start\":2,\"end\":8},{\"text\":\"is\",\"bold\":true,\"italic\":true,\"underline\":true,\"fontSize\":15,\"start\":8,\"end\":10},{\"text\":\" Is Tes\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":10,\"end\":17},{\"text\":\"t \",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":17,\"end\":19},{\"text\":\"Formater\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":15,\"start\":19,\"end\":27},{\"text\":\"Hel\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":27,\"end\":30},{\"text\":\"lo T\",\"bold\":true,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":30,\"end\":34},{\"text\":\"h\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":34,\"end\":35},{\"text\":\"is Is Lin\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":35,\"end\":44},{\"text\":\"e Formater\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":44,\"end\":54}]"); 
+                
+        System.out.println(TextFormat.convertToJson(styledTextArea));
+    }
+
     public void initialize() {
         noteArea.getChildren().add(styledTextArea);
-        
-        //
-        ObservableList<String> fontSizes = FXCollections.observableArrayList();
-        for (int i = 10; i <= 110; i++) {
-            fontSizes.add(Integer.toString(i));
-        }
-        fontSize.setItems(fontSizes);
-        fontSize.getSelectionModel().selectFirst();
+        styledTextArea.setPrefSize(noteArea.getPrefWidth(), noteArea.getPrefHeight());
+        styledTextArea.setStyle("-fx-background-color: transparent;");
+        styledTextArea.setWrapText(true);
+
+        fontSize.setItems(FXCollections.observableArrayList(CssManager.getFontSizeList()));
+        fontSize.getSelectionModel().select("12");
+
+        fontFamily.setItems(FXCollections.observableArrayList(CssManager.getFontFamilyList()));
+        fontFamily.getSelectionModel().selectFirst();
     }
 
     private void toggleStyle(String styleClass, String fontSize) {

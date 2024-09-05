@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" styleClass="primary-screen-pane" stylesheets="@../../../css/screen.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.PrimaryController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" styleClass="primary-screen-pane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.PrimaryController">
    <children>
       <ScrollPane fx:id="homeScrollPaneContainer" layoutX="220.0" layoutY="60.0" prefHeight="740.0" prefWidth="1160.0" styleClass="scroll-pane-container" stylesheets="@../../../css/scrollPaneContainer.css" translateX="20.0">
          <content>
@@ -561,4 +562,8 @@
          </children>
       </Pane>
    </children>
+   <stylesheets>
+      <URL value="@../../../css/screen.css" />
+      <URL value="@../../../css/scrollBarCustom.css" />
+   </stylesheets>
 </Pane>

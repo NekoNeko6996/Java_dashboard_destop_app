@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,7 +175,6 @@ public class PrimaryController {
 
         // load weather
         WeatherManager.load(10.15, 105.1833, (Weather data) -> {
-            System.out.println("da" + data.getDaily().getWind_direction_10m_dominant().get(1));
             loadHomeWeatherNodeTomorrow(data);
 
             loadHomeWeatherNode(data);
@@ -221,8 +219,6 @@ public class PrimaryController {
                 App.alertMessage(Alert.AlertType.ERROR, "Load Weather Node Error", ex.getMessage()).showAndWait();
                 return;
             }
-
-            System.out.println(weatherHourly.getTime().get(count));
         }
     }
 

@@ -1,0 +1,30 @@
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0; /* Xóa khoảng cách nếu có */
+    -fx-background-color: transparent; /* Đặt nền trong suốt */
+    -fx-background-insets: 0; /* Xóa các insets nếu có */
+    -fx-shape: ""; /* Xóa hình dạng nút */
+    -fx-border-width: 0; /* Xóa border */
+    visibility: hidden; /* Ẩn các nút */
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #1890FF;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}

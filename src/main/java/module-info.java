@@ -1,6 +1,7 @@
 module com.application.main {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;
     
     requires gson;
     requires jbcrypt;
@@ -11,12 +12,14 @@ module com.application.main {
     requires org.fxmisc.richtext;
     requires org.fxmisc.flowless;
     requires org.fxmisc.undo;
+    requires org.jsoup;
 
     
     opens com.application.controllers to javafx.fxml;
     opens com.application.main to javafx.fxml;
     opens com.application.models to javafx.base, gson;
     opens com.application.models.weather to javafx.base, gson;
+    opens com.application.models.textFormat to gson;
     
     
     exports com.application.main;
