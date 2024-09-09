@@ -1,5 +1,5 @@
 .normal-button {
-     -fx-background-color: white;
+     -fx-background-color: -fx-button-default-color;
      -fx-border-color: #CCC;
      -fx-background-radius: 5;
      -fx-border-radius: 5;
@@ -7,7 +7,7 @@
 }
 
 .normal-button-no-border {
-     -fx-background-color: white;
+     -fx-background-color: -fx-button-default-color;
      -fx-border-color: white;
      -fx-background-radius: 5;
      -fx-border-radius: 5;
@@ -15,16 +15,16 @@
 }
 
 .confirm-button {
-     -fx-background-color: #1890FF;
-     -fx-border-color: #1890FF;
+     -fx-background-color: -fx-primary-color;
+     -fx-border-color: -fx-primary-color;
      -fx-background-radius: 5;
      -fx-border-radius: 5;
      -fx-text-fill: white;
 }
 
 .confirm-button-border {
-     -fx-background-color: white;
-     -fx-border-color: #1890FF;
+     -fx-background-color: -fx-button-default-color;
+     -fx-border-color: -fx-primary-color;
      -fx-background-radius: 5;
      -fx-border-radius: 5;
      -fx-text-fill: white;
@@ -33,4 +33,41 @@
 
 .visible-button {
      -fx-background-color: transparent;
+}
+
+.visible-button-no-padding {
+     -fx-background-color: transparent;
+     -fx-padding: 0;
+}
+
+.visible-button-no-padding-selected {
+     -fx-background-color: transparent;
+     -fx-padding: 0;
+     -fx-border-color: black;
+     -fx-border-radius: 4;
+}
+
+.button-no-padding {
+     -fx-padding: 0;
+}
+
+/* list button button */
+.list-button-selected {
+     -fx-border-color: -fx-primary-color;
+     -fx-border-radius: 4;
+     -fx-border-width: 2;
+     -fx-background-color: transparent;
+     -fx-padding: 0;
+}
+
+.list-button-no-selected:hover {
+     -fx-border-color: -fx-button-hover-color;
+}
+
+.list-button-no-selected {
+     -fx-border-color: -fx-button-default-border-color;
+     -fx-border-radius: 4;
+     -fx-border-width: 2;
+     -fx-background-color: transparent;
+     -fx-padding: 0;
 }

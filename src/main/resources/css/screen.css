@@ -1,3 +1,21 @@
+* {
+	-fx-primary-background-color: #E1E4EB;
+
+	-fx-primary-color: #1890FF;
+	-fx-secondary-color: #864500;
+	-fx-light-grey-color: #d1d1d1;
+	/*Set focus color*/
+  	-fx-focus-color: -fx-secondary-color;
+
+	/* button */
+	-fx-button-hover-color: #d1d1d1;
+	-fx-button-default-border-color: white;
+	-fx-button-default-color: white;
+
+	/* format text field container */
+	-fx-border-default-color: #CCC;
+}
+
 .primary-screen-pane {
-       -fx-background-color:  #E1E4EB;
+       -fx-background-color:  -fx-primary-background-color;
 }

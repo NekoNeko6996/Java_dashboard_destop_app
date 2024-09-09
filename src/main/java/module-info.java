@@ -1,8 +1,7 @@
 module com.application.main {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.web;
-    
+
     requires gson;
     requires jbcrypt;
     requires org.apache.httpcomponents.httpclient;

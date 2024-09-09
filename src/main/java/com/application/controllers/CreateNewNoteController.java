@@ -2,34 +2,31 @@ package com.application.controllers;
 
 import com.application.main.CssManager;
 import com.application.main.TextFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
-import javafx.scene.web.WebView;
 
 public class CreateNewNoteController {
 
     //
     private final StyleClassedTextArea styledTextArea = new StyleClassedTextArea();
 
-    @FXML
-    private WebView web;
-
     //
     @FXML
     private Pane noteArea;
     @FXML
     private ComboBox<String> fontSize;
-    @FXML
-    private ComboBox<String> fontFamily;
 
     @FXML
     private void onChangeFontSize() {
@@ -60,15 +57,13 @@ public class CreateNewNoteController {
 
     public void initialize() {
         noteArea.getChildren().add(styledTextArea);
+        styledTextArea.setPadding(new Insets(10));
         styledTextArea.setPrefSize(noteArea.getPrefWidth(), noteArea.getPrefHeight());
-        styledTextArea.setStyle("-fx-background-color: transparent;");
         styledTextArea.setWrapText(true);
+        styledTextArea.setStyle("-fx-font-size: 12pt; -fx-background-color: transparent; -fx-border-color: #CCC;");
 
         fontSize.setItems(FXCollections.observableArrayList(CssManager.getFontSizeList()));
         fontSize.getSelectionModel().select("12");
-
-        fontFamily.setItems(FXCollections.observableArrayList(CssManager.getFontFamilyList()));
-        fontFamily.getSelectionModel().selectFirst();
     }
 
     private void toggleStyle(String styleClass, String fontSize) {
