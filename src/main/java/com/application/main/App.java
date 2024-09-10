@@ -3,7 +3,6 @@ package com.application.main;
 import com.application.models.ScreenInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,7 +40,8 @@ public class App extends Application {
         SCREEN_INFO.put("login", new ScreenInfo(1000, 650));
         SCREEN_INFO.put("primary", new ScreenInfo(1400, 800));
         SCREEN_INFO.put("weatherNodeComponent1A", new ScreenInfo(150, 140));
-        SCREEN_INFO.put("createNewNote", new ScreenInfo(630, 800));
+        SCREEN_INFO.put("createNewNote", new ScreenInfo(630, 660));
+        SCREEN_INFO.put("noteHomeComponent", new ScreenInfo(350, 300));
         
         // start here ...
         SettingManager.load();

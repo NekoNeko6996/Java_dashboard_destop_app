@@ -1,7 +1,11 @@
 package com.application.controllers;
 
+import com.application.main.App;
 import com.application.main.CssManager;
+import com.application.main.Http;
+import com.application.main.LoginManager;
 import com.application.main.TextFormat;
+import com.application.models.Note;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,7 +15,10 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpans;
@@ -27,6 +34,12 @@ public class CreateNewNoteController {
     private Pane noteArea;
     @FXML
     private ComboBox<String> fontSize;
+    @FXML
+    private FlowPane tagFlowPane;
+    @FXML
+    private DatePicker dateSelect;
+    @FXML
+    private FlowPane chooseIconFlowPane;
 
     @FXML
     private void onChangeFontSize() {
@@ -50,9 +63,20 @@ public class CreateNewNoteController {
 
     @FXML
     private void onSaveNote() {
-        TextFormat.converToStyleClassedTextArea(styledTextArea, "[{\"text\":\"He\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":0,\"end\":2},{\"text\":\"llo Th\",\"bold\":true,\"italic\":true,\"underline\":false,\"fontSize\":15,\"start\":2,\"end\":8},{\"text\":\"is\",\"bold\":true,\"italic\":true,\"underline\":true,\"fontSize\":15,\"start\":8,\"end\":10},{\"text\":\" Is Tes\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":10,\"end\":17},{\"text\":\"t \",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":17,\"end\":19},{\"text\":\"Formater\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":15,\"start\":19,\"end\":27},{\"text\":\"Hel\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":27,\"end\":30},{\"text\":\"lo T\",\"bold\":true,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":30,\"end\":34},{\"text\":\"h\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":34,\"end\":35},{\"text\":\"is Is Lin\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":35,\"end\":44},{\"text\":\"e Formater\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":44,\"end\":54}]"); 
+        TextFormat.converToStyleClassedTextArea(styledTextArea, "[{\"text\":\"Hel\",\"bold\":true,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":0,\"end\":3},{\"text\":\"oo\",\"bold\":true,\"italic\":false,\"underline\":false,\"fontSize\":16,\"start\":3,\"end\":5},{\"text\":\"w \",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":16,\"start\":5,\"end\":7},{\"text\":\"T\",\"bold\":false,\"italic\":true,\"underline\":true,\"fontSize\":16,\"start\":7,\"end\":8},{\"text\":\"his I\",\"bold\":false,\"italic\":true,\"underline\":true,\"fontSize\":12,\"start\":8,\"end\":13},{\"text\":\"s T\",\"bold\":true,\"italic\":true,\"underline\":true,\"fontSize\":12,\"start\":13,\"end\":16},{\"text\":\"e\",\"bold\":false,\"italic\":true,\"underline\":true,\"fontSize\":12,\"start\":16,\"end\":17},{\"text\":\"st N\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":17,\"end\":21},{\"text\":\"ote Co\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":21,\"start\":21,\"end\":27},{\"text\":\"ntent!\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":27,\"end\":33}]"); 
                 
-        System.out.println(TextFormat.convertToJson(styledTextArea));
+//        System.out.println(TextFormat.convertToJson(styledTextArea));
+//        String jsonString = TextFormat.convertToJson(styledTextArea);
+//        
+//        List<String> tag = new ArrayList<>();
+//        tag.add("Holiday");
+//        tag.add("Beach");
+//        
+//        Note noteData = new Note(0, jsonString, "normal", App.gson.toJson(tag, List.class), "http://thisisiconlink.com/icon", 0);
+//        Http.post("/saveNote", App.gson.toJson(noteData, Note.class), LoginManager.headers, (String response) -> {
+//            
+//            System.out.println(response);
+//        });
     }
 
     public void initialize() {
@@ -60,7 +84,8 @@ public class CreateNewNoteController {
         styledTextArea.setPadding(new Insets(10));
         styledTextArea.setPrefSize(noteArea.getPrefWidth(), noteArea.getPrefHeight());
         styledTextArea.setWrapText(true);
-        styledTextArea.setStyle("-fx-font-size: 12pt; -fx-background-color: transparent; -fx-border-color: #CCC;");
+        styledTextArea.setStyle("-fx-font-size: 12pt; -fx-background-color: transparent;");
+        styledTextArea.setCursor(Cursor.TEXT);
 
         fontSize.setItems(FXCollections.observableArrayList(CssManager.getFontSizeList()));
         fontSize.getSelectionModel().select("12");

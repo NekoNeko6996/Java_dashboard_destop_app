@@ -2,10 +2,10 @@ package com.application.controllers;
 
 import com.application.main.App;
 import com.application.main.Http;
-import com.application.main.LoginManager;
 import com.application.main.SettingManager;
-import com.application.models.HttpResponse;
+import com.application.main.UserManager;
 import com.application.models.LoginForm;
+import com.application.models.User;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,13 +37,13 @@ public class LoginController {
     void onClickLogin(ActionEvent event) {
         LoginForm loginData = new LoginForm(email.getText(), password.getText());
         Http.post("/login", App.gson.toJson(loginData), null, (String response) -> {
-            HttpResponse response_ = App.gson.fromJson(response, HttpResponse.class);
+            User user = App.gson.fromJson(response, User.class);
 
-            if (response_.getStatus().equals("success") && response_.getMessage().equals("Login Successful") && !response_.getToken().isEmpty()) {
-                LoginManager.setToken(response_.getToken());
+            if (user.getStatus().equals("success") && user.getMessage().equals("Login Successful") && !user.getToken().isEmpty()) {
+                UserManager.setUser(user);
 
                 if (keepLogin.isSelected()) {
-                    SettingManager.data.setToken(response_.getToken());
+                    SettingManager.data.setToken(user.getToken());
                     SettingManager.data.setKeep_login(true);
                     SettingManager.save();
                 }
@@ -51,7 +51,7 @@ public class LoginController {
                 App.newStage("primary");
                 App.closeStage("login");
             } else {
-                App.alertMessage(Alert.AlertType.INFORMATION, "Login failed", response_.getMessage()).showAndWait();
+                App.alertMessage(Alert.AlertType.INFORMATION, "Login failed", user.getMessage()).showAndWait();
             }
         });
     }

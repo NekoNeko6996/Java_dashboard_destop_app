@@ -1,23 +1,21 @@
 package com.application.main;
 
-import com.application.models.HttpResponse;
+import com.application.models.User;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class LoginManager {
-    private static String token;
-
+    public static Map<String, String> headers = new HashMap<>();
     
     public static void login() {
         if(SettingManager.data.isKeep_login() && !SettingManager.data.getToken().isEmpty()) {
-            Map<String, String> headers = new HashMap<>();
             headers.put("Authorization", "Bearer ".concat(SettingManager.data.getToken()));
             
             Http.post("/checkToken", "", headers, (String response) -> {
-                HttpResponse response_ = App.gson.fromJson(response, HttpResponse.class);
-                if(response_.getStatus().equals("success") && response_.getMessage().equals("Token Verified")) {
-                    token = SettingManager.data.getToken();
+                User user = App.gson.fromJson(response, User.class);
+                if(user.getStatus().equals("success") && user.getMessage().equals("Token Verified")) {
+                    UserManager.setUser(user);
                     App.newStage("primary");
                 }
                 else {
@@ -28,15 +26,5 @@ public class LoginManager {
         else {
             App.newStage("login");
         }
-    }
-    
-    
-    
-    public static String getToken() {
-        return token;
-    }
-
-    public static void setToken(String aToken) {
-        token = aToken;
     }
 }

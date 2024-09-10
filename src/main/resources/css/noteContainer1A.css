@@ -1,12 +1,17 @@
-.note-icon-pane {
-	-fx-border-color: #1890FF;
-	-fx-border-width: 2;
-	-fx-border-radius: 5;	
-}
-
 .note-pane-container {
 	-fx-background-color: white;
 	-fx-background-radius: 5;
-	-fx-border-color: #1890FF;
+	-fx-border-color: -fx-primary-color;
 	-fx-border-width: 0 0 3 0;
+}
+
+.note-pane-container .pane-icon {
+	-fx-border-color: -fx-primary-color;
+	-fx-border-width: 2;
+	-fx-border-radius: 5;
+}
+
+.note-pane-container .tag-flow-pane .label {
+	-fx-border-color: #888;
+	-fx-border-radius: 5;
 }

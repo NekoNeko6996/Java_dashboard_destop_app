@@ -57,21 +57,21 @@ public class Http {
     public static void get(String path, Map<String, String> headers, Consumer<String> callback) {
         CompletableFuture.supplyAsync(() -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpGet post = new HttpGet(SettingManager.data.getBase_api().concat(path));
+                HttpGet get = new HttpGet(SettingManager.data.getBase_api().concat(path));
 
                 // Set the request headers
-                post.setHeader("Content-Type", "application/json");
-                post.setHeader("Accept", "application/json");
+                get.setHeader("Content-Type", "application/json");
+                get.setHeader("Accept", "application/json");
 
                 // Add additional headers from the map
                 if (headers != null) {
                     for (Map.Entry<String, String> entry : headers.entrySet()) {
-                        post.setHeader(entry.getKey(), entry.getValue());
+                        get.setHeader(entry.getKey(), entry.getValue());
                     }
                 }
 
                 // Execute the request
-                HttpResponse response = httpClient.execute(post);
+                HttpResponse response = httpClient.execute(get);
                 HttpEntity responseEntity = response.getEntity();
                 return EntityUtils.toString(responseEntity, "UTF-8");
             } catch (IOException e) {

@@ -1,15 +1,22 @@
 package com.application.controllers;
 
 import com.application.main.App;
+import com.application.main.Http;
+import com.application.main.LoginManager;
 import com.application.main.WeatherManager;
+import com.application.models.Note;
+import com.application.models.NoteResponse;
 import com.application.models.weather.*;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -26,9 +33,10 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class PrimaryController {
+
     //
-    private Map<String, ScrollPane> appTabList = new HashMap<>();
-    
+    private final Map<String, ScrollPane> appTabList = new HashMap<>();
+
     //
     @FXML
     private ScrollPane homeScrollPaneContainer;
@@ -74,12 +82,15 @@ public class PrimaryController {
     @FXML
     private ImageView weatherTomorrowSkeleton;
 
+    @FXML
+    private FlowPane noteHomeFlowPane;
+
     //
     @FXML
     private void onClickWeatherHomeMoreInfo(ActionEvent event) {
 
     }
-    
+
     @FXML
     private void onClickCreateNewNote() {
         App.newStage("createNewNote");
@@ -91,10 +102,10 @@ public class PrimaryController {
         for (Node btn : leftNavBtnListContainer.getChildren()) {
             if (btn instanceof Button) {
                 Button b = (Button) btn;
-                
+
                 b.getStyleClass().remove("pane-nav-button-selected");
                 b.getStyleClass().add("pane-nav-button");
-                b.getStyleClass().add( "pane-nav-button-hover");
+                b.getStyleClass().add("pane-nav-button-hover");
                 appTabList.get(b.getId()).setManaged(false);
                 appTabList.get(b.getId()).setVisible(false);
             }
@@ -110,26 +121,55 @@ public class PrimaryController {
     }
 
     public void setManagedNavTag(ScrollPane open, List<ScrollPane> scrollPaneList) {
-        
+
     }
 
     //
     public void initialize() {
-        
+
         //load weather
         loadWeatherData();
 
         // load avatar
         loadUserAvatar("https://i.imgur.com/vji8rWQ.png");
 
+        //
+        loadNoteToHomePane();
+
         // sau khi load scene xong 
         Platform.runLater(() -> {
             topNavSearchBarInit();
-            
+
             //
             appTabList.put("home-button", homeScrollPaneContainer);
             appTabList.put("other-button", otherScrollPaneContainer);
         });
+    }
+
+    public void loadNoteToHomePane() {
+        Http.get("/getNote", LoginManager.headers, (String responseString) -> {
+            NoteResponse response = App.gson.fromJson(responseString, NoteResponse.class);
+
+            System.out.println(response.getNotes().get(1).getContent());
+            
+            //
+            noteHomeFlowPane.getChildren().clear();
+            for (Note note : response.getNotes()) {
+                try {
+                    FXMLLoader loader = App.loadFXMLToLoader("noteHomeComponent");
+                    NoteHomeComponentController controller = new NoteHomeComponentController(
+                            note.getContent(), 
+                            LocalDate.now().toString(), 
+                            "https://cdn-icons-png.flaticon.com/512/2664/2664593.png", 
+                            App.gson.fromJson(note.getTag(), List.class));
+                    loader.setController(controller);
+                    noteHomeFlowPane.getChildren().add(loader.load());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    return;
+                }
+            }
+        }); 
     }
 
     public void topNavSearchBarInit() {

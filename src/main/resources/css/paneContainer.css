@@ -21,3 +21,8 @@
 .pane-container > .header > .label {
      -fx-text-fill: white;
 }
+
+.pane-container-border-bottom {
+     -fx-border-width: 0 0 1 0;
+     -fx-border-color: #BBB;
+}
