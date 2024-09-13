@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import org.fxmisc.richtext.StyleClassedTextArea;    
 
 public class NoteHomeComponentController {
@@ -59,6 +60,9 @@ public class NoteHomeComponentController {
         for(String nameTag : tag) {
             Label tagLabel = new Label(nameTag);
             tagLabel.setPadding(new Insets(3, 5, 3, 5));
+            tagLabel.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            
+            System.out.println(tagLabel.getPrefWidth());
             tagFlowPane.getChildren().add(tagLabel);
         }
         

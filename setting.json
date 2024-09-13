@@ -1,7 +1,7 @@
 {
   "app_version": "1.0",
   "theme": "light",
-  "base_api": "http://localhost:80/AdminDashboardApp/public/api",
+  "base_api": "http://localhost:80/php-api-server/public/api",
   "keep_login": true,
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjU5NDg5MjcsImV4cCI6MTcyNTk1MjUyNywiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiZnVsbE5hbWUiOiJOZ3V5XHUxZWM1biBIb1x1MDBlMG5nIE5hbSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA5LTEwIDA4OjE1OjI3In19.fzB2Lf06mMosm3Jt9n1FywCG1bLAFfypggXqj6-CxH0"
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjYyMDQ4NTEsImV4cCI6MTcyNjIwODQ1MSwiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiZnVsbE5hbWUiOiJOZ3V5XHUxZWM1biBIb1x1MDBlMG5nIE5hbSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA5LTEzIDA3OjIwOjUxIn19.NcWPP7RPgiGGGaSpvXpSJ3WMgv4vEdWHlN2-O_zXBT8"
 }

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,11 +16,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="660.0" prefWidth="630.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.CreateNewNoteController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="630.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.application.controllers.CreateNewNoteController">
    <children>
       <Pane layoutX="30.0" layoutY="33.0" prefHeight="50.0" prefWidth="570.0" styleClass="pane-container-border-bottom" stylesheets="@../../../css/paneContainer.css">
          <children>
-            <ToggleButton fx:id="toggleBold" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleBoldAction" prefHeight="30.0" prefWidth="30.0" styleClass="visible-button-no-padding" stylesheets="@../../../css/button.css">
+            <ToggleButton fx:id="toggleBold" layoutX="421.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleBoldAction" prefHeight="30.0" prefWidth="30.0" styleClass="visible-button-no-padding" stylesheets="@../../../css/button.css">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,7 +29,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="toggleItalic" layoutX="65.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleItalicAction" prefHeight="30.0" prefWidth="30.0" styleClass="visible-button-no-padding" stylesheets="@../../../css/button.css">
+            <ToggleButton fx:id="toggleItalic" layoutX="472.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleItalicAction" prefHeight="30.0" prefWidth="30.0" styleClass="visible-button-no-padding" stylesheets="@../../../css/button.css">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +38,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="toggleUnderline" layoutX="119.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleUnderlineAction" prefHeight="30.0" prefWidth="30.0" styleClass="visible-button-no-padding" stylesheets="@../../../css/button.css">
+            <ToggleButton fx:id="toggleUnderline" layoutX="526.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleUnderlineAction" prefHeight="30.0" prefWidth="30.0" styleClass="visible-button-no-padding" stylesheets="@../../../css/button.css">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,7 +47,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ComboBox fx:id="fontSize" layoutX="183.0" layoutY="11.0" onAction="#onChangeFontSize" prefHeight="31.0" prefWidth="70.0" stylesheets="@../../../css/ComboBox.css" />
+            <ComboBox fx:id="fontSize" layoutX="326.0" layoutY="12.0" onAction="#onChangeFontSize" prefHeight="31.0" prefWidth="70.0" stylesheets="@../../../css/ComboBox.css" />
          </children>
       </Pane>
       <Pane fx:id="noteArea" layoutX="15.0" layoutY="83.0" prefHeight="260.0" prefWidth="570.0" style="-fx-background-color: white;" translateX="15.0">
@@ -56,27 +57,30 @@
          <padding>
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
          </padding></Pane>
-      <Button layoutX="499.0" layoutY="609.0" mnemonicParsing="false" onAction="#onSaveNote" prefHeight="27.0" prefWidth="101.0" styleClass="confirm-button" stylesheets="@../../../css/button.css" text="Save Note" textFill="WHITE">
+      <Button layoutX="499.0" layoutY="620.0" mnemonicParsing="false" onAction="#onSaveNote" prefHeight="27.0" prefWidth="101.0" styleClass="confirm-button" stylesheets="@../../../css/button.css" text="Save Note" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button layoutX="373.0" layoutY="609.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="101.0" styleClass="normal-button" stylesheets="@../../../css/button.css" text="Cancel">
+      <Button layoutX="373.0" layoutY="620.0" mnemonicParsing="false" onAction="#onCancel" prefHeight="27.0" prefWidth="101.0" styleClass="normal-button" stylesheets="@../../../css/button.css" text="Cancel">
          <font>
             <Font size="14.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <DatePicker fx:id="dateSelect" layoutX="399.0" layoutY="390.0" prefHeight="40.0" prefWidth="200.0" stylesheets="@../../../css/datePicker.css" />
-      <FlowPane fx:id="tagFlowPane" hgap="5.0" layoutX="30.0" layoutY="390.0" maxHeight="65.0" maxWidth="360.0" minHeight="30.0" vgap="5.0">
-         <children>
-            <Label prefHeight="30.0" stylesheets="@../../../css/tagLabel.css" text="This is Tag Label" />
-            <Label prefHeight="30.0" stylesheets="@../../../css/tagLabel.css" text="Label" />
-            <Label prefHeight="30.0" stylesheets="@../../../css/tagLabel.css" text="This is Tag Label" />
-            <Label prefHeight="30.0" stylesheets="@../../../css/tagLabel.css" text="This is Tag Label" />
-            <Label prefHeight="30.0" stylesheets="@../../../css/tagLabel.css" text="Add Tag +" />
-         </children>
+      <DatePicker fx:id="dateSelect" layoutX="399.0" layoutY="395.0" prefHeight="30.0" prefWidth="200.0" stylesheets="@../../../css/datePicker.css" />
+      <FlowPane fx:id="tagFlowPane" hgap="5.0" layoutX="31.0" layoutY="539.0" maxHeight="65.0" maxWidth="360.0" minHeight="30.0" vgap="5.0">
+         <stylesheets>
+            <URL value="@../../../css/tagLabel.css" />
+            <URL value="@../../../css/tagLabelContainer.css" />
+         </stylesheets>
       </FlowPane>
-      <FlowPane fx:id="chooseIconFlowPane" hgap="10.0" layoutX="30.0" layoutY="510.0" prefHeight="40.0" prefWidth="340.0">
+      <FlowPane fx:id="chooseIconFlowPane" hgap="10.0" layoutX="30.0" layoutY="390.0" prefHeight="40.0" prefWidth="340.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="list-button-selected" stylesheets="@../../../css/button.css">
                <graphic>
@@ -143,12 +147,12 @@
             </Button>
          </children>
       </FlowPane>
-      <Label layoutX="30.0" layoutY="363.0" text="Tag" textFill="#4d4d4d">
+      <Label layoutX="31.0" layoutY="459.0" text="Tag" textFill="#4d4d4d">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="30.0" layoutY="483.0" text="Icon" textFill="#4d4d4d">
+      <Label layoutX="30.0" layoutY="363.0" text="Icon" textFill="#4d4d4d">
          <font>
             <Font size="18.0" />
          </font>
@@ -158,6 +162,21 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <ComboBox fx:id="priorityComboBox" layoutX="399.0" layoutY="491.0" prefHeight="30.0" prefWidth="200.0" stylesheets="@../../../css/ComboBox.css" />
+      <Label layoutX="399.0" layoutY="458.0" text="Priority" textFill="#4d4d4d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="addTagInputTextField" layoutX="31.0" layoutY="488.0" onAction="#onClickAddTag" prefHeight="35.0" prefWidth="250.0" promptText="Tag Content ...." styleClass="input-text-field-border-bottom" stylesheets="@../../../css/inputTextField.css" />
+      <Button layoutX="287.0" layoutY="488.0" mnemonicParsing="false" onAction="#onClickAddTag" prefHeight="35.0" prefWidth="57.0" styleClass="normal-button" stylesheets="@../../../css/button.css" text="Add">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
    <stylesheets>
       <URL value="@../../../css/createnewnote.css" />

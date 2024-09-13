@@ -40,7 +40,7 @@ public class App extends Application {
         SCREEN_INFO.put("login", new ScreenInfo(1000, 650));
         SCREEN_INFO.put("primary", new ScreenInfo(1400, 800));
         SCREEN_INFO.put("weatherNodeComponent1A", new ScreenInfo(150, 140));
-        SCREEN_INFO.put("createNewNote", new ScreenInfo(630, 660));
+        SCREEN_INFO.put("createNewNote", new ScreenInfo(630, 700));
         SCREEN_INFO.put("noteHomeComponent", new ScreenInfo(350, 300));
         
         // start here ...

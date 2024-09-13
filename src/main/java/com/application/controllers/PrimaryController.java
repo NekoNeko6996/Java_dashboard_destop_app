@@ -7,7 +7,11 @@ import com.application.main.WeatherManager;
 import com.application.models.Note;
 import com.application.models.NoteResponse;
 import com.application.models.weather.*;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -148,28 +152,43 @@ public class PrimaryController {
 
     public void loadNoteToHomePane() {
         Http.get("/getNote", LoginManager.headers, (String responseString) -> {
-            NoteResponse response = App.gson.fromJson(responseString, NoteResponse.class);
+            System.out.println(responseString);
+            try {
+                NoteResponse response = App.gson.fromJson(responseString, NoteResponse.class);
 
-            System.out.println(response.getNotes().get(1).getContent());
-            
-            //
-            noteHomeFlowPane.getChildren().clear();
-            for (Note note : response.getNotes()) {
-                try {
-                    FXMLLoader loader = App.loadFXMLToLoader("noteHomeComponent");
-                    NoteHomeComponentController controller = new NoteHomeComponentController(
-                            note.getContent(), 
-                            LocalDate.now().toString(), 
-                            "https://cdn-icons-png.flaticon.com/512/2664/2664593.png", 
-                            App.gson.fromJson(note.getTag(), List.class));
-                    loader.setController(controller);
-                    noteHomeFlowPane.getChildren().add(loader.load());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    return;
+                // Clear old notes from the pane
+                noteHomeFlowPane.getChildren().clear();
+
+                for (NoteResponse.Note_ note : response.getNotes()) {
+                    try {
+                        FXMLLoader loader = App.loadFXMLToLoader("noteHomeComponent");
+                        
+                        Type tagType = new TypeToken<List<String>>(){}.getType();
+                        List<String> tag = App.gson.fromJson(note.getTag(), tagType);
+
+                        // Create and set controller with the note data
+                        NoteHomeComponentController controller = new NoteHomeComponentController(
+                                note.getContent(),
+                                note.getDay(),
+                                note.getIcon(),
+                                tag
+                        );
+                        loader.setController(controller);
+
+                        // Load FXML and add to FlowPane
+                        noteHomeFlowPane.getChildren().add(loader.load());
+
+                    } catch (IOException | JsonSyntaxException ex) {
+                        ex.printStackTrace();
+                        // Optionally, you could show an error in the UI instead of just returning
+                        return;
+                    }
                 }
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+                // Optionally, handle the error here, maybe clear the pane or show a message
             }
-        }); 
+        });
     }
 
     public void topNavSearchBarInit() {

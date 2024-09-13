@@ -6,6 +6,7 @@ import com.application.main.Http;
 import com.application.main.LoginManager;
 import com.application.main.TextFormat;
 import com.application.models.Note;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,10 +17,15 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
@@ -28,6 +34,7 @@ public class CreateNewNoteController {
 
     //
     private final StyleClassedTextArea styledTextArea = new StyleClassedTextArea();
+    private String selectedIconURL;
 
     //
     @FXML
@@ -40,6 +47,10 @@ public class CreateNewNoteController {
     private DatePicker dateSelect;
     @FXML
     private FlowPane chooseIconFlowPane;
+    @FXML
+    private ComboBox<String> priorityComboBox;
+    @FXML
+    private TextField addTagInputTextField;
 
     @FXML
     private void onChangeFontSize() {
@@ -60,27 +71,59 @@ public class CreateNewNoteController {
     public void handleUnderlineAction() {
         toggleStyle("underline", fontSize.getValue());
     }
+    
+    @FXML
+    private void onClickAddTag() {
+        Button tagContent = createNoteTag(addTagInputTextField.getText());
+        
+        tagContent.setOnAction(eh -> {
+            tagFlowPane.getChildren().remove(tagContent);
+        });
+        
+        tagFlowPane.getChildren().add(tagContent);
+    }
 
     @FXML
     private void onSaveNote() {
-        TextFormat.converToStyleClassedTextArea(styledTextArea, "[{\"text\":\"Hel\",\"bold\":true,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":0,\"end\":3},{\"text\":\"oo\",\"bold\":true,\"italic\":false,\"underline\":false,\"fontSize\":16,\"start\":3,\"end\":5},{\"text\":\"w \",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":16,\"start\":5,\"end\":7},{\"text\":\"T\",\"bold\":false,\"italic\":true,\"underline\":true,\"fontSize\":16,\"start\":7,\"end\":8},{\"text\":\"his I\",\"bold\":false,\"italic\":true,\"underline\":true,\"fontSize\":12,\"start\":8,\"end\":13},{\"text\":\"s T\",\"bold\":true,\"italic\":true,\"underline\":true,\"fontSize\":12,\"start\":13,\"end\":16},{\"text\":\"e\",\"bold\":false,\"italic\":true,\"underline\":true,\"fontSize\":12,\"start\":16,\"end\":17},{\"text\":\"st N\",\"bold\":false,\"italic\":false,\"underline\":false,\"fontSize\":12,\"start\":17,\"end\":21},{\"text\":\"ote Co\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":21,\"start\":21,\"end\":27},{\"text\":\"ntent!\",\"bold\":false,\"italic\":false,\"underline\":true,\"fontSize\":12,\"start\":27,\"end\":33}]"); 
-                
-//        System.out.println(TextFormat.convertToJson(styledTextArea));
-//        String jsonString = TextFormat.convertToJson(styledTextArea);
-//        
-//        List<String> tag = new ArrayList<>();
-//        tag.add("Holiday");
-//        tag.add("Beach");
-//        
-//        Note noteData = new Note(0, jsonString, "normal", App.gson.toJson(tag, List.class), "http://thisisiconlink.com/icon", 0);
-//        Http.post("/saveNote", App.gson.toJson(noteData, Note.class), LoginManager.headers, (String response) -> {
-//            
-//            System.out.println(response);
-//        });
+        String jsonString = TextFormat.convertToJson(styledTextArea);
+
+        List<String> tagList = new ArrayList<>();
+        for(Node node : tagFlowPane.getChildren()) {
+            tagList.add(((Button) node).getText());
+        }
+
+        String prioriry = priorityComboBox.getValue().toLowerCase();
+        String iconUrl = selectedIconURL;
+        String day = dateSelect.getValue().toString();
+        int isDone = 0;
+
+        // form data
+        Note noteData = new Note(
+                0,
+                jsonString,
+                prioriry,
+                tagList,
+                iconUrl,
+                day,
+                isDone
+        );
+        
+        System.out.println(App.gsonBuilder.toJson(noteData, Note.class));
+        
+        Http.post("/saveNote", App.gson.toJson(noteData, Note.class), LoginManager.headers, (String response) -> {
+
+            System.out.println(response);
+        });
+    }
+
+    @FXML
+    private void onCancel() {
+        App.closeStage("createNewNote");
     }
 
     public void initialize() {
         noteArea.getChildren().add(styledTextArea);
+
         styledTextArea.setPadding(new Insets(10));
         styledTextArea.setPrefSize(noteArea.getPrefWidth(), noteArea.getPrefHeight());
         styledTextArea.setWrapText(true);
@@ -89,6 +132,59 @@ public class CreateNewNoteController {
 
         fontSize.setItems(FXCollections.observableArrayList(CssManager.getFontSizeList()));
         fontSize.getSelectionModel().select("12");
+
+        // priority
+        priorityComboBox.getItems().addAll("Default", "Very Low", "Low", "Medium", "High", "Very High");
+        priorityComboBox.getSelectionModel().selectFirst();
+
+        //
+        dateSelect.setValue(LocalDate.now());
+        
+        
+        //
+        selectedIconURL = ((ImageView)((Button) chooseIconFlowPane.getChildren().get(0)).getGraphic()).getImage().getUrl();
+        setupNodeSeletedIconList();
+    }
+
+    private void setupNodeSeletedIconList() {
+        for (Node node : chooseIconFlowPane.getChildren()) {
+            Button button = (Button) node;
+
+            button.setOnAction(eh -> {
+                ImageView seletedIcon = (ImageView) button.getGraphic();
+                selectedIconURL = seletedIcon.getImage().getUrl();
+
+                // Loại bỏ class "list-button-selected" và thêm "list-button-no-selected" cho tất cả các nút
+                for (Node node_ : chooseIconFlowPane.getChildren()) {
+                    node_.getStyleClass().removeAll("list-button-selected");
+                    if (!node_.getStyleClass().contains("list-button-no-selected")) {
+                        node_.getStyleClass().add("list-button-no-selected");
+                    }
+                }
+                // Đặt class "list-button-selected" cho nút được nhấn
+                button.getStyleClass().remove("list-button-no-selected");
+                if (!button.getStyleClass().contains("list-button-selected")) {
+                    button.getStyleClass().add("list-button-selected");
+                }
+            });
+        }
+    }
+
+    private Button createNoteTag(String tagContent) {
+        double height = 30;
+
+        // tag
+        Button tag = new Button(tagContent);
+        tag.setCursor(Cursor.HAND);
+
+        tag.setOnAction(eh -> {
+            System.out.println("delete tag");
+        });
+
+        tag.setPrefSize(Region.USE_COMPUTED_SIZE, height);
+        tag.getStyleClass().add("tag-button-container");
+
+        return tag;
     }
 
     private void toggleStyle(String styleClass, String fontSize) {

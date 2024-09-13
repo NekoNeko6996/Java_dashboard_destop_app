@@ -2,10 +2,12 @@ package com.application.controllers;
 
 import com.application.main.App;
 import com.application.main.Http;
+import com.application.main.LoginManager;
 import com.application.main.SettingManager;
 import com.application.main.UserManager;
 import com.application.models.LoginForm;
 import com.application.models.User;
+import com.google.gson.JsonParseException;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,21 +39,28 @@ public class LoginController {
     void onClickLogin(ActionEvent event) {
         LoginForm loginData = new LoginForm(email.getText(), password.getText());
         Http.post("/login", App.gson.toJson(loginData), null, (String response) -> {
-            User user = App.gson.fromJson(response, User.class);
+            try {
+                User user = App.gson.fromJson(response, User.class);
 
-            if (user.getStatus().equals("success") && user.getMessage().equals("Login Successful") && !user.getToken().isEmpty()) {
-                UserManager.setUser(user);
+                if (user.getStatus().equals("success") && user.getMessage().equals("Login Successful") && !user.getToken().isEmpty()) {
+                    UserManager.setUser(user);
+                    LoginManager.setToken(user.getToken());
 
-                if (keepLogin.isSelected()) {
-                    SettingManager.data.setToken(user.getToken());
-                    SettingManager.data.setKeep_login(true);
-                    SettingManager.save();
+                    if (keepLogin.isSelected()) {
+                        SettingManager.data.setToken(user.getToken());
+                        SettingManager.data.setKeep_login(true);
+                        SettingManager.save();
+                    }
+
+                    App.newStage("primary");
+                    App.closeStage("login");
+                } else {
+                    App.alertMessage(Alert.AlertType.INFORMATION, "Login failed", user.getMessage()).showAndWait();
                 }
-
-                App.newStage("primary");
-                App.closeStage("login");
-            } else {
-                App.alertMessage(Alert.AlertType.INFORMATION, "Login failed", user.getMessage()).showAndWait();
+            } catch (JsonParseException e) {
+                System.out.println("Failed to convert JSON to User object: " + e.getMessage());
+                App.alertMessage(Alert.AlertType.ERROR, "Unexpected error during data conversion", "").showAndWait();
+                App.closeAllStages();
             }
         });
     }
@@ -68,8 +77,7 @@ public class LoginController {
             password.setVisible(true);
             passwordTextPass.setManaged(false);
             passwordTextPass.setVisible(false);
-        }
-        else {
+        } else {
             password.setManaged(false);
             password.setVisible(false);
             passwordTextPass.setManaged(true);

@@ -4,3 +4,11 @@
      -fx-border-radius: 5;
      -fx-background-radius: 5; 
 }
+
+.input-text-field-border-bottom {
+     -fx-border-radius: 0;
+     -fx-background-radius: 0;
+     -fx-background-color: white;
+     -fx-border-color: #CCC;
+     -fx-border-width: 0 0 1 0;
+}

@@ -188,7 +188,7 @@
                                           <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                        </padding>
                                     </Label>
-                                    <Label alignment="CENTER" prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="3 more ...">
+                                    <Label alignment="CENTER" prefHeight="25.0" style="-fx-border-color: #888; -fx-border-radius: 5;" text="...">
                                        <padding>
                                           <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                        </padding>
