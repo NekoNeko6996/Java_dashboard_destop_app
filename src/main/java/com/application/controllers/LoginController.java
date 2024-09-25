@@ -42,7 +42,8 @@ public class LoginController {
             try {
                 User user = App.gson.fromJson(response, User.class);
 
-                if (user.getStatus().equals("success") && user.getMessage().equals("Login Successful") && !user.getToken().isEmpty()) {
+                if (user.getStatus().equals("success") && user.getMessage().equals("Login Successful")
+                        && !user.getToken().isEmpty()) {
                     UserManager.setUser(user);
                     LoginManager.setToken(user.getToken());
 
@@ -52,7 +53,8 @@ public class LoginController {
                         SettingManager.save();
                     }
 
-                    App.newStage("primary");
+                    // load primary with event
+                    App.newStageEvent("primary", PrimaryController.class);
                     App.closeStage("login");
                 } else {
                     App.alertMessage(Alert.AlertType.INFORMATION, "Login failed", user.getMessage()).showAndWait();

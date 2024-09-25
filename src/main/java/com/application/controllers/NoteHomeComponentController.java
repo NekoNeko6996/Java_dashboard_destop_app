@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import org.fxmisc.richtext.StyleClassedTextArea;    
+import org.fxmisc.richtext.StyleClassedTextArea;
 
 public class NoteHomeComponentController {
     //
@@ -27,7 +27,7 @@ public class NoteHomeComponentController {
         this.noteIconUrl = noteIconUrl;
         this.tag = tag;
     }
-    
+
     //
     @FXML
     private Label dayView;
@@ -51,31 +51,29 @@ public class NoteHomeComponentController {
 
     @FXML
     void onClickPin(ActionEvent event) {
-
+        
     }
 
     public void initialize() {
         // tag
         tagFlowPane.getChildren().clear();
-        for(String nameTag : tag) {
+        for (String nameTag : tag) {
             Label tagLabel = new Label(nameTag);
             tagLabel.setPadding(new Insets(3, 5, 3, 5));
             tagLabel.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            
-            System.out.println(tagLabel.getPrefWidth());
             tagFlowPane.getChildren().add(tagLabel);
         }
-        
+
         // time
         dayView.setText(day);
-        
+
         // icon
         noteIcon.setImage(new Image(noteIconUrl));
-        
+
         // content
         contentView.setWrapText(true);
         contentView.setPrefSize(noteContentPane.getPrefWidth(), noteContentPane.getPrefHeight());
         noteContentPane.getChildren().add(contentView);
-        TextFormat.converToStyleClassedTextArea(contentView, content);
+        TextFormat.convertToStyleClassedTextArea(contentView, content);
     }
 }

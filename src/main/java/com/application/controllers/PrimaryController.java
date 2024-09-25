@@ -1,5 +1,7 @@
 package com.application.controllers;
 
+import com.application.events.EventAfterSaveNote;
+import com.application.interfaces.SetEventBus;
 import com.application.main.App;
 import com.application.main.Http;
 import com.application.main.LoginManager;
@@ -7,20 +9,18 @@ import com.application.main.WeatherManager;
 import com.application.models.Note;
 import com.application.models.NoteResponse;
 import com.application.models.weather.*;
-import com.google.gson.JsonIOException;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -36,10 +36,11 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class PrimaryController {
+public class PrimaryController implements SetEventBus {
 
     //
     private final Map<String, ScrollPane> appTabList = new HashMap<>();
+    private EventBus eventBus;
 
     //
     @FXML
@@ -61,7 +62,7 @@ public class PrimaryController {
     @FXML
     private Circle userAvatarCircleTopNav;
 
-    // weather 
+    // weather
     @FXML
     private FlowPane weatherHomeFlowPane;
 
@@ -97,7 +98,7 @@ public class PrimaryController {
 
     @FXML
     private void onClickCreateNewNote() {
-        App.newStage("createNewNote");
+        App.newStageEvent("createNewNote", "New Note", CreateNewNoteController.class);
     }
 
     @FXML
@@ -124,23 +125,26 @@ public class PrimaryController {
         appTabList.get(clickedButton.getId()).setVisible(true);
     }
 
-    public void setManagedNavTag(ScrollPane open, List<ScrollPane> scrollPaneList) {
+    // event handler
+    @Override
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
+        eventBus.register(this);
+    }
 
+    @Subscribe
+    public void handleAfterSaveNote(EventAfterSaveNote event) {
+        System.out.println("EventAfterSaveNote");
+        loadNoteToHomePane();
     }
 
     //
     public void initialize() {
-
-        //load weather
         loadWeatherData();
-
-        // load avatar
         loadUserAvatar("https://i.imgur.com/vji8rWQ.png");
-
-        //
         loadNoteToHomePane();
 
-        // sau khi load scene xong 
+        // after load scene
         Platform.runLater(() -> {
             topNavSearchBarInit();
 
@@ -150,20 +154,24 @@ public class PrimaryController {
         });
     }
 
+    public void setManagedNavTag(ScrollPane open, List<ScrollPane> scrollPaneList) {
+
+    }
+
     public void loadNoteToHomePane() {
         Http.get("/getNote", LoginManager.headers, (String responseString) -> {
-            System.out.println(responseString);
             try {
                 NoteResponse response = App.gson.fromJson(responseString, NoteResponse.class);
 
                 // Clear old notes from the pane
                 noteHomeFlowPane.getChildren().clear();
 
-                for (NoteResponse.Note_ note : response.getNotes()) {
+                for (int count = 0; count < 3; count++) {
                     try {
+                        NoteResponse.Note_ note = response.getNotes().get(count);
                         FXMLLoader loader = App.loadFXMLToLoader("noteHomeComponent");
-                        
-                        Type tagType = new TypeToken<List<String>>(){}.getType();
+                        Type tagType = new TypeToken<List<String>>() {
+                        }.getType();
                         List<String> tag = App.gson.fromJson(note.getTag(), tagType);
 
                         // Create and set controller with the note data
@@ -171,8 +179,7 @@ public class PrimaryController {
                                 note.getContent(),
                                 note.getDay(),
                                 note.getIcon(),
-                                tag
-                        );
+                                tag);
                         loader.setController(controller);
 
                         // Load FXML and add to FlowPane
@@ -269,8 +276,7 @@ public class PrimaryController {
                         weatherHourly.getRelative_humidity_2m().get(count),
                         weatherHourly.getPrecipitation_probability().get(count),
                         time,
-                        WeatherStatus.getWeatherStatus(weatherHourly.getPrecipitation_probability().get(count))
-                );
+                        WeatherStatus.getWeatherStatus(weatherHourly.getPrecipitation_probability().get(count)));
 
                 weatherLoader.setController(controller);
                 weatherHomeFlowPane.getChildren().add(weatherLoader.load());
@@ -283,10 +289,12 @@ public class PrimaryController {
 
     private void loadHomeWeatherNodeTomorrow(Weather data) {
         // temperature
-        weatherHomeTomorrowTemperature.setText(Integer.toString((int) data.getDaily().getTemperature_2m_max().get(1).doubleValue()));
+        weatherHomeTomorrowTemperature
+                .setText(Integer.toString((int) data.getDaily().getTemperature_2m_max().get(1).doubleValue()));
 
         // apparent temperature
-        weatherHomeTomorrowApparentTemperature.setText(Integer.toString((int) data.getDaily().getApparent_temperature_max().get(1).doubleValue()));
+        weatherHomeTomorrowApparentTemperature
+                .setText(Integer.toString((int) data.getDaily().getApparent_temperature_max().get(1).doubleValue()));
 
         // rain percent
         weatherHomeTomorrowRain.setText(Integer.toString(data.getDaily().getPrecipitation_probability_max().get(1)));
@@ -298,7 +306,9 @@ public class PrimaryController {
         weatherHomeTomorrowWind.setText(Double.toString(data.getDaily().getWind_speed_10m_max().get(1)));
 
         //
-        weatherHomeTomorrowIcon.setImage(new Image(getClass().getResource(WeatherStatus.getWeatherStatus(data.getDaily().getPrecipitation_probability_max().get(1))).toString()));
+        weatherHomeTomorrowIcon.setImage(new Image(getClass()
+                .getResource(WeatherStatus.getWeatherStatus(data.getDaily().getPrecipitation_probability_max().get(1)))
+                .toString()));
 
         //
         weatherTomorrowSkeleton.setVisible(false);
