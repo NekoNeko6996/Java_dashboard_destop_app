@@ -3,5 +3,31 @@
   "theme": "light",
   "base_api": "http://localhost:80/php-api-server/public/api",
   "keep_login": true,
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjcyMzEyOTAsImV4cCI6MTcyOTgyMzI5MCwiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiZnVsbE5hbWUiOiJOZ3V5XHUxZWM1biBIb1x1MDBlMG5nIE5hbSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA5LTI1IDA0OjI4OjEwIn19.asroBVOhnK8C0pGysFXBOWmaR-sfPPREZi9EDsnneg0"
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjcyMzEyOTAsImV4cCI6MTcyOTgyMzI5MCwiaXNzIjoibG9jYWxob3N0IiwiZGF0YSI6eyJpZCI6ImlkXzY2YzZkZWExYWE0MDM5LjUxNTcyNjg1IiwiZnVsbE5hbWUiOiJOZ3V5XHUxZWM1biBIb1x1MDBlMG5nIE5hbSIsImNyZWF0ZWRfYXQiOiIyMDI0LTA5LTI1IDA0OjI4OjEwIn19.asroBVOhnK8C0pGysFXBOWmaR-sfPPREZi9EDsnneg0",
+  "noteColorSet": [
+    {
+      "type": "normal",
+      "color": "#000000"
+    },
+    {
+      "type": "veryLow",
+      "color": "#8AC3A3"
+    },
+    {
+      "type": "low",
+      "color": "#87BAF5"
+    },
+    {
+      "type": "medium",
+      "color": "#F0864A"
+    },
+    {
+      "type": "high",
+      "color": "#F674AD"
+    },
+    {
+      "type": "veryHigh",
+      "color": "#AA87F5"
+    }
+  ]
 }

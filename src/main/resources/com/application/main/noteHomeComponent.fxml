@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="300.0" prefWidth="350.0" styleClass="note-pane-container" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="container" prefHeight="300.0" prefWidth="350.0" styleClass="note-pane-container" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="50.0" prefWidth="50.0" styleClass="pane-icon" translateX="10.0" translateY="10.0">
+      <Pane fx:id="iconContainer" prefHeight="50.0" prefWidth="50.0" styleClass="pane-icon" translateX="10.0" translateY="10.0">
          <children>
             <ImageView fx:id="noteIcon" fitHeight="40.0" fitWidth="40.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>

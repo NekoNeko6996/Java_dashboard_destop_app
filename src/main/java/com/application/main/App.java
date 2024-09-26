@@ -72,6 +72,7 @@ public class App extends Application {
                 stage.setScene(new Scene(root, screen.getWidth(), screen.getHeight()));
                 stage.setTitle(title);
                 stage.getIcons().add(appIcon);
+                stage.setResizable(false);
                 stage.show();
                 stages.put(fxml, stage);
             } catch (IOException ex) {
@@ -105,6 +106,7 @@ public class App extends Application {
                 stage.setScene(new Scene(root, screen.getWidth(), screen.getHeight()));
                 stage.setTitle(title);
                 stage.getIcons().add(appIcon);
+                stage.setResizable(false);
                 stage.show();
                 stages.put(fxml, stage);
             } catch (IOException ex) {

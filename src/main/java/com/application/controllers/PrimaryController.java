@@ -40,7 +40,6 @@ public class PrimaryController implements SetEventBus {
 
     //
     private final Map<String, ScrollPane> appTabList = new HashMap<>();
-    private EventBus eventBus;
 
     //
     @FXML
@@ -128,7 +127,6 @@ public class PrimaryController implements SetEventBus {
     // event handler
     @Override
     public void setEventBus(EventBus eventBus) {
-        this.eventBus = eventBus;
         eventBus.register(this);
     }
 
@@ -163,6 +161,8 @@ public class PrimaryController implements SetEventBus {
             try {
                 NoteResponse response = App.gson.fromJson(responseString, NoteResponse.class);
 
+                System.out.println(App.gsonBuilder.toJson(response));
+
                 // Clear old notes from the pane
                 noteHomeFlowPane.getChildren().clear();
 
@@ -176,6 +176,7 @@ public class PrimaryController implements SetEventBus {
 
                         // Create and set controller with the note data
                         NoteHomeComponentController controller = new NoteHomeComponentController(
+                                note.getPriority(),
                                 note.getContent(),
                                 note.getDay(),
                                 note.getIcon(),
@@ -187,13 +188,11 @@ public class PrimaryController implements SetEventBus {
 
                     } catch (IOException | JsonSyntaxException ex) {
                         ex.printStackTrace();
-                        // Optionally, you could show an error in the UI instead of just returning
                         return;
                     }
                 }
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
-                // Optionally, handle the error here, maybe clear the pane or show a message
             }
         });
     }
