@@ -43,11 +43,8 @@ public class TextFormat {
             Matcher matcher = pattern.matcher(styleString);
 
             if (matcher.find()) {
-                // Lấy nhóm 1, chính là phần số 12
                 fontSize = Integer.parseInt(matcher.group(1));
-                System.out.println("Font size: " + fontSize);
             } else {
-                System.out.println("Không tìm thấy font size");
             }
 
             // Create a StyledTextSegment for this span
@@ -60,19 +57,19 @@ public class TextFormat {
 
     }
 
-    public static void converToStyleClassedTextArea(StyleClassedTextArea textArea, String json) {
-        
+    public static void convertToStyleClassedTextArea(StyleClassedTextArea textArea, String json) {
+
         // convert json string to Class Data
         List<StyledTextSegment> segments;
-        Type listType = new TypeToken<List<StyledTextSegment>>() {}.getType();
+        Type listType = new TypeToken<List<StyledTextSegment>>() {
+        }.getType();
 
         segments = App.gsonBuilder.fromJson(json, listType);
-        
+
         // load and setStyle
         for (StyledTextSegment segment : segments) {
-            textArea.appendText(segment.getText()); // Thêm văn bản
+            textArea.appendText(segment.getText());
 
-            // Áp dụng các thuộc tính cho đoạn văn bản
             int start = textArea.getLength() - segment.getText().length();
             int end = textArea.getLength();
 
@@ -86,8 +83,6 @@ public class TextFormat {
             if (segment.isUnderline()) {
                 styles.add("underline");
             }
-
-            System.out.println(segment.getFontSize());
             styles.add("font-size-" + segment.getFontSize());
 
             // add style

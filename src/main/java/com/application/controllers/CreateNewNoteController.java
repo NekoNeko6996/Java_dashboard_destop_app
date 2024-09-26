@@ -1,11 +1,15 @@
 package com.application.controllers;
 
+import com.application.events.EventAfterSaveNote;
+import com.application.interfaces.SetEventBus;
 import com.application.main.App;
 import com.application.main.CssManager;
 import com.application.main.Http;
 import com.application.main.LoginManager;
 import com.application.main.TextFormat;
 import com.application.models.Note;
+import com.google.common.eventbus.EventBus;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,11 +34,12 @@ import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
 
-public class CreateNewNoteController {
+public class CreateNewNoteController implements SetEventBus {
 
     //
     private final StyleClassedTextArea styledTextArea = new StyleClassedTextArea();
     private String selectedIconURL;
+    private EventBus eventBus;
 
     //
     @FXML
@@ -71,15 +76,15 @@ public class CreateNewNoteController {
     public void handleUnderlineAction() {
         toggleStyle("underline", fontSize.getValue());
     }
-    
+
     @FXML
     private void onClickAddTag() {
         Button tagContent = createNoteTag(addTagInputTextField.getText());
-        
+
         tagContent.setOnAction(eh -> {
             tagFlowPane.getChildren().remove(tagContent);
         });
-        
+
         tagFlowPane.getChildren().add(tagContent);
     }
 
@@ -88,11 +93,11 @@ public class CreateNewNoteController {
         String jsonString = TextFormat.convertToJson(styledTextArea);
 
         List<String> tagList = new ArrayList<>();
-        for(Node node : tagFlowPane.getChildren()) {
+        for (Node node : tagFlowPane.getChildren()) {
             tagList.add(((Button) node).getText());
         }
 
-        String prioriry = priorityComboBox.getValue().toLowerCase();
+        String priority = priorityComboBox.getValue().toLowerCase();
         String iconUrl = selectedIconURL;
         String day = dateSelect.getValue().toString();
         int isDone = 0;
@@ -101,24 +106,29 @@ public class CreateNewNoteController {
         Note noteData = new Note(
                 0,
                 jsonString,
-                prioriry,
+                priority,
                 tagList,
                 iconUrl,
                 day,
-                isDone
-        );
-        
-        System.out.println(App.gsonBuilder.toJson(noteData, Note.class));
-        
+                isDone);
         Http.post("/saveNote", App.gson.toJson(noteData, Note.class), LoginManager.headers, (String response) -> {
-
-            System.out.println(response);
+            // send event to update note list
+            eventBus.post(new EventAfterSaveNote("create successfully"));
+            System.out.println("[New Note] Create note successfully");
+            App.closeStage("createNewNote");
         });
     }
 
     @FXML
     private void onCancel() {
         App.closeStage("createNewNote");
+    }
+
+    // event handler
+    @Override
+    public void setEventBus(EventBus event) {
+        this.eventBus = event;
+        eventBus.register(this);
     }
 
     public void initialize() {
@@ -139,29 +149,27 @@ public class CreateNewNoteController {
 
         //
         dateSelect.setValue(LocalDate.now());
-        
-        
+
         //
-        selectedIconURL = ((ImageView)((Button) chooseIconFlowPane.getChildren().get(0)).getGraphic()).getImage().getUrl();
-        setupNodeSeletedIconList();
+        selectedIconURL = ((ImageView) ((Button) chooseIconFlowPane.getChildren().get(0)).getGraphic()).getImage()
+                .getUrl();
+        setupNodeSelectedIconList();
     }
 
-    private void setupNodeSeletedIconList() {
+    private void setupNodeSelectedIconList() {
         for (Node node : chooseIconFlowPane.getChildren()) {
             Button button = (Button) node;
 
             button.setOnAction(eh -> {
-                ImageView seletedIcon = (ImageView) button.getGraphic();
-                selectedIconURL = seletedIcon.getImage().getUrl();
+                ImageView selectedIcon = (ImageView) button.getGraphic();
+                selectedIconURL = selectedIcon.getImage().getUrl();
 
-                // Loại bỏ class "list-button-selected" và thêm "list-button-no-selected" cho tất cả các nút
                 for (Node node_ : chooseIconFlowPane.getChildren()) {
                     node_.getStyleClass().removeAll("list-button-selected");
                     if (!node_.getStyleClass().contains("list-button-no-selected")) {
                         node_.getStyleClass().add("list-button-no-selected");
                     }
                 }
-                // Đặt class "list-button-selected" cho nút được nhấn
                 button.getStyleClass().remove("list-button-no-selected");
                 if (!button.getStyleClass().contains("list-button-selected")) {
                     button.getStyleClass().add("list-button-selected");
@@ -193,21 +201,17 @@ public class CreateNewNoteController {
         String newFontSize = "font-size-" + fontSize;
 
         if (start == end) {
-            // Không có văn bản được chọn
             return;
         }
 
-        // Lấy các lớp hiện tại của đoạn văn bản được chọn
         Set<String> currentStyles = new HashSet<>();
         for (int i = start; i < end; i++) {
             currentStyles.addAll(styledTextArea.getStyleOfChar(i));
         }
 
-        // Kiểm tra xem lớp định dạng đã tồn tại hay chưa
         boolean isActive = currentStyles.contains(styleClass);
         boolean isChangeSize = !currentStyles.contains(newFontSize);
 
-        // Tạo StyleSpansBuilder để xây dựng các spans mới
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
         for (int i = start; i < end; i++) {
@@ -228,7 +232,6 @@ public class CreateNewNoteController {
             spansBuilder.add(Collections.unmodifiableSet(styles), 1);
         }
 
-        // Áp dụng các spans mới
         StyleSpans<Collection<String>> spans = spansBuilder.create();
         styledTextArea.setStyleSpans(start, spans);
     }

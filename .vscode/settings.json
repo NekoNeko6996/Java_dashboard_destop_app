@@ -1,0 +1,16 @@
+{
+  "cSpell.words": [
+    "flowless",
+    "fxmisc",
+    "gson",
+    "httpclient",
+    "httpcomponents",
+    "httpcore",
+    "isset",
+    "jbcrypt",
+    "jsoup"
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.format.settings.url": "eclipse-formatter.xml",
+  "java.compile.nullAnalysis.mode": "automatic"
+}
