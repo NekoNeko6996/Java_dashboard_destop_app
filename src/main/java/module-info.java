@@ -13,9 +13,10 @@ module com.application.main {
     requires transitive org.fxmisc.flowless;
     requires transitive org.fxmisc.undo;
     requires org.jsoup;
+    requires spring.core;
 
     opens com.application.controllers to javafx.fxml;
-    opens com.application.main to javafx.fxml;
+    opens com.application.main to javafx.fxml, gson;
     opens com.application.models to javafx.base, gson;
     opens com.application.models.weather to javafx.base, gson;
     opens com.application.models.textFormat to gson;

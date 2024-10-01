@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1314.0" style="-fx-background-color: #CCC;" stylesheets="@../../../css/mainFxmlClass.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="85.0" layoutY="115.0" maxHeight="600.0" prefWidth="1145.0" styleClass="pane-container">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" styleClass="label-container-title" text="Power Outage Schedule" textFill="#6b6b6b">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Line endX="1014.0" layoutX="115.0" layoutY="42.0" startX="-100.0" styleClass="header-line-container" translateY="10.0" />
+            <ScrollPane layoutX="15.0" layoutY="53.0" maxHeight="520.0" prefWidth="1115.0" styleClass="scroll-pane-container">
+               <content>
+                  <VBox prefWidth="1100.0" spacing="10.0">
+                     <padding>
+                        <Insets bottom="5.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <Pane prefHeight="200.0" prefWidth="1115.0">
+                           <children>
+                              <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="495.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../icons/electric-tower.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="363.0" layoutY="158.0" text="No power outage schedule found in your area" textFill="#7c7c7c">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content>
+               <stylesheets>
+                  <URL value="@../../../css/scrollBarCustom.css" />
+                  <URL value="@../../../css/scrollPaneContainer.css" />
+               </stylesheets>
+            </ScrollPane>
+         </children>
+         <stylesheets>
+            <URL value="@../../../css/paneContainer.css" />
+            <URL value="@../../../css/lineStroke.css" />
+         </stylesheets>
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+      </Pane>
+      <Pane layoutX="100.0" layoutY="466.0" prefHeight="200.0" prefWidth="1115.0">
+         <children>
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="495.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/electric-tower.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="363.0" layoutY="158.0" text="No power outage schedule found in your area" textFill="#7c7c7c">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</Pane>

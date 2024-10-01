@@ -5,9 +5,10 @@ import com.application.interfaces.SetEventBus;
 import com.application.main.App;
 import com.application.main.Http;
 import com.application.main.LoginManager;
+import com.application.main.PowerOutageScheduleManager;
 import com.application.main.WeatherManager;
-import com.application.models.Note;
 import com.application.models.NoteResponse;
+import com.application.models.PowerOutageSchedule;
 import com.application.models.weather.*;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -32,6 +34,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -89,6 +92,10 @@ public class PrimaryController implements SetEventBus {
     @FXML
     private FlowPane noteHomeFlowPane;
 
+    // power outage schedule
+    @FXML
+    private VBox powerOutageScheduleVBox;
+
     //
     @FXML
     private void onClickWeatherHomeMoreInfo(ActionEvent event) {
@@ -141,6 +148,7 @@ public class PrimaryController implements SetEventBus {
         loadWeatherData();
         loadUserAvatar("https://i.imgur.com/vji8rWQ.png");
         loadNoteToHomePane();
+        loadPowerOutageSchedule("PB2006");
 
         // after load scene
         Platform.runLater(() -> {
@@ -156,12 +164,10 @@ public class PrimaryController implements SetEventBus {
 
     }
 
-    public void loadNoteToHomePane() {
+    private void loadNoteToHomePane() {
         Http.get("/getNote", LoginManager.headers, (String responseString) -> {
             try {
                 NoteResponse response = App.gson.fromJson(responseString, NoteResponse.class);
-
-                System.out.println(App.gsonBuilder.toJson(response));
 
                 // Clear old notes from the pane
                 noteHomeFlowPane.getChildren().clear();
@@ -197,7 +203,7 @@ public class PrimaryController implements SetEventBus {
         });
     }
 
-    public void topNavSearchBarInit() {
+    private void topNavSearchBarInit() {
         Stage primaryStage = App.getStage("primary");
         if (primaryStage.getScene() != null) {
             primaryStage.getScene().setOnKeyPressed(event -> {
@@ -214,7 +220,7 @@ public class PrimaryController implements SetEventBus {
         }
     }
 
-    public void loadUserAvatar(String imgURL) {
+    private void loadUserAvatar(String imgURL) {
         Task<Void> loadImg = new Task<>() {
             @Override
             protected Void call() throws Exception {
@@ -234,7 +240,47 @@ public class PrimaryController implements SetEventBus {
         new Thread(loadImg).start();
     }
 
-    public void loadWeatherData() {
+    private void loadPowerOutageSchedule(String unitCode) {
+        PowerOutageScheduleManager.load(unitCode, (List<PowerOutageSchedule> data) -> {
+
+            if (data.size() == 0) {
+                return;
+            }
+
+            // Clear old notes from the pane
+            powerOutageScheduleVBox.getChildren().clear();
+
+            for (PowerOutageSchedule schedule : data) {
+                try {
+                    FXMLLoader loader = App.loadFXMLToLoader("powerOutageScheduleComponent");
+
+                    String[] startDate = schedule.getStart_date().split(" ");
+                    String sDate = startDate[0];
+                    String sTime = startDate[1];
+
+                    String[] endDate = schedule.getEnd_date().split(" ");
+                    String eDate = endDate[0];
+                    String eTime = endDate[1];
+
+                    PowerOutageScheduleComponentController controller = new PowerOutageScheduleComponentController(
+                            sDate,
+                            sTime,
+                            eTime,
+                            schedule.getReason(),
+                            schedule.getAddress());
+                    // Set controller
+                    loader.setController(controller);
+
+                    // Load FXML and add to FlowPane
+                    powerOutageScheduleVBox.getChildren().add(loader.load());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void loadWeatherData() {
         weatherTomorrowSkeleton.setVisible(true);
         weatherTomorrowSkeleton.setManaged(true);
 
@@ -246,7 +292,7 @@ public class PrimaryController implements SetEventBus {
         });
     }
 
-    public static int findTimeIndex(List<String> timeList, LocalDateTime currentTime) {
+    private static int findTimeIndex(List<String> timeList, LocalDateTime currentTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
         for (int i = 0; i < timeList.size(); i++) {
@@ -255,7 +301,6 @@ public class PrimaryController implements SetEventBus {
                 return i - 1 >= 0 ? i - 1 : 0;
             }
         }
-
         return -1;
     }
 
