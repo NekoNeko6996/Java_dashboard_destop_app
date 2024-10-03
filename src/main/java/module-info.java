@@ -14,6 +14,7 @@ module com.application.main {
     requires transitive org.fxmisc.undo;
     requires org.jsoup;
     requires spring.core;
+    requires javafx.base;
 
     opens com.application.controllers to javafx.fxml;
     opens com.application.main to javafx.fxml, gson;

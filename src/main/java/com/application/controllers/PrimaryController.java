@@ -3,12 +3,14 @@ package com.application.controllers;
 import com.application.events.EventAfterSaveNote;
 import com.application.interfaces.SetEventBus;
 import com.application.main.App;
+import com.application.main.GlobalVariable;
 import com.application.main.Http;
 import com.application.main.LoginManager;
 import com.application.main.PowerOutageScheduleManager;
 import com.application.main.WeatherManager;
 import com.application.models.NoteResponse;
 import com.application.models.PowerOutageSchedule;
+import com.application.models.PowerOutageScheduleRegion;
 import com.application.models.weather.*;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -24,17 +26,20 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -43,6 +48,9 @@ public class PrimaryController implements SetEventBus {
 
     //
     private final Map<String, ScrollPane> appTabList = new HashMap<>();
+    private int powerOutageSchedulePageIndex = 1;
+    private int powerOutageSchedulePageCount = 1;
+    private int powerOutageScheduleMaxItem = 5;
 
     //
     @FXML
@@ -94,19 +102,90 @@ public class PrimaryController implements SetEventBus {
 
     // power outage schedule
     @FXML
-    private VBox powerOutageScheduleVBox;
+    private Button powOutShedPrevBtn;
+    @FXML
+    private Button powOutShedNextBtn;
+    @FXML
+    private Button powOutShedPageShowBtn;
 
-    //
+    @FXML
+    private ComboBox<String> powOutSchedProvinceSelect;
+    @FXML
+    private ComboBox<String> powOutSchedRegionSelect;
+    // power outage schedule table view
+    @FXML
+    private TableView<PowerOutageSchedule> powOutSchedTableView;
+    @FXML
+    private TableColumn<PowerOutageSchedule, String> powOutScheStartColumn;
+    @FXML
+    private TableColumn<PowerOutageSchedule, String> powOutScheStartTimeColumn;
+    @FXML
+    private TableColumn<PowerOutageSchedule, String> powOutScheEndTimeColumn;
+    @FXML
+    private TableColumn<PowerOutageSchedule, String> powOutScheAddressColumn;
+    @FXML
+    private TableColumn<PowerOutageSchedule, String> powOutScheReasonColumn;
+
+    // onclick select province or region
+    @FXML
+    private void onSelectProvincePowOutSched() {
+        //
+        String province = powOutSchedProvinceSelect.getValue();
+        String provinceCode = "PB20";
+
+        for (Map.Entry<String, String> entry : GlobalVariable.PowOutScheduleProvince.entrySet()) {
+            if (entry.getValue().equals(province)) {
+                provinceCode = entry.getKey();
+            }
+        }
+
+        PowerOutageScheduleManager.loadRegion(provinceCode, (List<PowerOutageScheduleRegion> region) -> {
+            powOutSchedRegionSelect.getItems().clear();
+            for (PowerOutageScheduleRegion regionItem : region) {
+                powOutSchedRegionSelect.getItems().add(regionItem.getRegion_name());
+            }
+            powOutSchedRegionSelect.getSelectionModel().selectFirst();
+        });
+    }
+
+    @FXML
+    private void onSelectRegionPowOutSched() {
+    }
+
+    // click change page on power outage schedule
+    @FXML
+    private void onClickPowOutShedPrevPage() {
+        if (powerOutageSchedulePageIndex == 1) {
+            return;
+        }
+        loadPowerOutageSchedule(PowerOutageScheduleManager.getData(), powerOutageSchedulePageIndex -= 1);
+        powOutShedPageShowBtn.setText(powerOutageSchedulePageIndex + "/" + powerOutageSchedulePageCount);
+
+    }
+
+    @FXML
+    private void onClickPowOutShedNextPage() {
+        if (powerOutageSchedulePageIndex == powerOutageSchedulePageCount) {
+            return;
+        }
+        loadPowerOutageSchedule(PowerOutageScheduleManager.getData(), powerOutageSchedulePageIndex += 1);
+        powOutShedPageShowBtn.setText(powerOutageSchedulePageIndex + "/" + powerOutageSchedulePageCount);
+
+    }
+
+    // click view more info on weather
     @FXML
     private void onClickWeatherHomeMoreInfo(ActionEvent event) {
 
     }
 
+    // click create new note
     @FXML
     private void onClickCreateNewNote() {
         App.newStageEvent("createNewNote", "New Note", CreateNewNoteController.class);
     }
 
+    // change tab on left nav
     @FXML
     private void onClickChangePage(ActionEvent event) {
         // Reset all buttons to their default styles
@@ -131,6 +210,12 @@ public class PrimaryController implements SetEventBus {
         appTabList.get(clickedButton.getId()).setVisible(true);
     }
 
+    // power outage schedule change page
+    @FXML
+    private void onClickPowerOutageScheduleChangePage(ActionEvent event) {
+        System.out.println("onClickPowerOutageScheduleChangePage");
+    }
+
     // event handler
     @Override
     public void setEventBus(EventBus eventBus) {
@@ -148,7 +233,25 @@ public class PrimaryController implements SetEventBus {
         loadWeatherData();
         loadUserAvatar("https://i.imgur.com/vji8rWQ.png");
         loadNoteToHomePane();
-        loadPowerOutageSchedule("PB2006");
+
+        // init power outage schedule table view
+        powerOutageScheduleTableViewInit();
+
+        // get power outage schedule data
+        PowerOutageScheduleManager.load("PB2006", (List<PowerOutageSchedule> powerOutageScheduleList) -> {
+            powerOutageSchedulePageCount = (int) Math
+                    .ceil((double) powerOutageScheduleList.size() / powerOutageScheduleMaxItem);
+
+            powOutShedPageShowBtn.setText(powerOutageSchedulePageIndex + "/" + powerOutageSchedulePageCount);
+            loadPowerOutageSchedule(powerOutageScheduleList);
+        });
+
+        // load province to combo box
+        for (Map.Entry<String, String> entry : GlobalVariable.PowOutScheduleProvince.entrySet()) {
+            powOutSchedProvinceSelect.getItems().add(entry.getValue());
+        }
+        powOutSchedProvinceSelect.getSelectionModel().select(GlobalVariable.PowOutScheduleProvince.get("PB20"));
+        onSelectProvincePowOutSched();
 
         // after load scene
         Platform.runLater(() -> {
@@ -158,6 +261,15 @@ public class PrimaryController implements SetEventBus {
             appTabList.put("home-button", homeScrollPaneContainer);
             appTabList.put("other-button", otherScrollPaneContainer);
         });
+    }
+
+    // power outage schedule table init
+    private void powerOutageScheduleTableViewInit() {
+        powOutScheStartColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
+        powOutScheStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("start_time"));
+        powOutScheEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("end_time"));
+        powOutScheAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        powOutScheReasonColumn.setCellValueFactory(new PropertyValueFactory<>("reason"));
     }
 
     public void setManagedNavTag(ScrollPane open, List<ScrollPane> scrollPaneList) {
@@ -240,44 +352,30 @@ public class PrimaryController implements SetEventBus {
         new Thread(loadImg).start();
     }
 
-    private void loadPowerOutageSchedule(String unitCode) {
-        PowerOutageScheduleManager.load(unitCode, (List<PowerOutageSchedule> data) -> {
+    // load power outage schedule
+    private void loadPowerOutageSchedule(List<PowerOutageSchedule> data) {
+        loadPowerOutageSchedule(data, 1);
+    }
 
-            if (data.size() == 0) {
-                return;
-            }
+    private void loadPowerOutageSchedule(List<PowerOutageSchedule> data, int page) {
+        if (data.size() == 0) {
+            return;
+        }
 
-            // Clear old notes from the pane
-            powerOutageScheduleVBox.getChildren().clear();
+        if (data.size() > 3) {
+            int startIndex = (page - 1) * powerOutageScheduleMaxItem;
+            int endIndex = Math.min(startIndex + powerOutageScheduleMaxItem, data.size());
+            data = data.subList(startIndex, endIndex);
+        }
 
-            for (PowerOutageSchedule schedule : data) {
-                try {
-                    FXMLLoader loader = App.loadFXMLToLoader("powerOutageScheduleComponent");
+        ObservableList<PowerOutageSchedule> dataList = FXCollections.observableArrayList();
 
-                    String[] startDate = schedule.getStart_date().split(" ");
-                    String sDate = startDate[0];
-                    String sTime = startDate[1];
+        for (PowerOutageSchedule schedule : data) {
+            schedule.setStart(schedule.getStart_time().split(" ")[0]);
+            dataList.add(schedule);
+        }
 
-                    String[] endDate = schedule.getEnd_date().split(" ");
-                    String eDate = endDate[0];
-                    String eTime = endDate[1];
-
-                    PowerOutageScheduleComponentController controller = new PowerOutageScheduleComponentController(
-                            sDate,
-                            sTime,
-                            eTime,
-                            schedule.getReason(),
-                            schedule.getAddress());
-                    // Set controller
-                    loader.setController(controller);
-
-                    // Load FXML and add to FlowPane
-                    powerOutageScheduleVBox.getChildren().add(loader.load());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        powOutSchedTableView.setItems(dataList);
     }
 
     private void loadWeatherData() {
