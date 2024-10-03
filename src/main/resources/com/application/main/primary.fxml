@@ -5,8 +5,11 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -22,9 +25,9 @@
    <children>
       <ScrollPane fx:id="homeScrollPaneContainer" layoutX="220.0" layoutY="60.0" prefHeight="740.0" prefWidth="1160.0" styleClass="scroll-pane-container" stylesheets="@../../../css/scrollPaneContainer.css" translateX="20.0">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1145.0">
+            <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1145.0" vgap="20.0">
                <children>
-                  <Pane prefHeight="215.0" prefWidth="1145.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0">
+                  <Pane prefHeight="215.0" prefWidth="1145.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css">
                      <children>
                         <Label layoutX="14.0" layoutY="20.0" styleClass="label-container-title" text="Weather" textFill="#6b6b6b">
                            <font>
@@ -122,7 +125,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane layoutY="235.0" prefHeight="60.0" prefWidth="1145.0" translateY="20.0">
+                  <Pane prefHeight="60.0" prefWidth="1145.0">
                      <children>
                         <Pane prefHeight="60.0" prefWidth="330.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css">
                            <children>
@@ -155,7 +158,7 @@
                         </Pane>
                      </children>
                   </Pane>
-                  <FlowPane fx:id="noteHomeFlowPane" hgap="10.0" layoutY="315.0" prefHeight="300.0" prefWidth="1145.0" translateY="10.0">
+                  <FlowPane fx:id="noteHomeFlowPane" hgap="10.0" prefHeight="300.0" prefWidth="1145.0">
                      <children>
                         <Pane prefHeight="300.0" prefWidth="350.0" styleClass="note-pane-container" stylesheets="@../../../css/noteContainer1A.css">
                            <children>
@@ -198,7 +201,7 @@
                                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                                  </padding>
                               </FlowPane>
-                              <TextArea editable="false" layoutX="10.0" layoutY="134.0" prefHeight="160.0" prefWidth="330.0" promptText="content ..." style="-fx-background-color: white;" stylesheets="@../../../css/tranparentTextArea.css" text="- Content line 1&#10;- Content line 2&#10;==========&#10;+ Task 01&#10;+ Task 02&#10;==========">
+                              <TextArea editable="false" layoutX="10.0" layoutY="134.0" prefHeight="150.0" prefWidth="330.0" promptText="content ..." style="-fx-background-color: white;" stylesheets="@../../../css/tranparentTextArea.css" text="- Content line 1&#10;- Content line 2&#10;==========&#10;+ Task 01&#10;+ Task 02&#10;==========">
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />
                                  </cursor>
@@ -259,7 +262,42 @@
                         </Pane>
                      </children>
                   </FlowPane>
-                  <Pane layoutY="625.0" prefHeight="300.0" prefWidth="670.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css" translateY="20.0">
+                  <Pane maxHeight="600.0" prefWidth="1145.0" styleClass="pane-container">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" styleClass="label-container-title" text="Power Outage Schedule" textFill="#6b6b6b">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Line endX="1014.0" layoutX="115.0" layoutY="42.0" startX="-100.0" styleClass="header-line-container" translateY="10.0" />
+                        <TableView fx:id="powOutSchedTableView" layoutX="15.0" layoutY="63.0" prefHeight="270.0" prefWidth="1115.0" stylesheets="@../../../css/tableView.css">
+                           <columns>
+                              <TableColumn fx:id="powOutScheStartColumn" prefWidth="130.0" resizable="false" text="Start" />
+                              <TableColumn fx:id="powOutScheStartTimeColumn" prefWidth="180.0" resizable="false" text="Start Time" />
+                              <TableColumn fx:id="powOutScheEndTimeColumn" prefWidth="180.0" resizable="false" text="End Time" />
+                              <TableColumn fx:id="powOutScheAddressColumn" prefWidth="320.0" resizable="false" text="Address" />
+                              <TableColumn fx:id="powOutScheReasonColumn" minWidth="0.0" prefWidth="290.0" resizable="false" text="Reason" />
+                           </columns>
+                        </TableView>
+                        <FlowPane alignment="CENTER" hgap="3.0" layoutX="910.0" layoutY="8.0" maxHeight="70.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="220.0" styleClass="page-number-bar" stylesheets="@../../../css/pageNumberBar.css">
+                           <children>
+                              <Button fx:id="powOutShedPrevBtn" mnemonicParsing="false" onAction="#onClickPowOutShedPrevPage" prefHeight="35.0" styleClass="prev-btn" text="&lt;&lt; Prev" />
+                              <Button fx:id="powOutShedPageShowBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="80.0" styleClass="number-btn" text="1/12" />
+                              <Button fx:id="powOutShedNextBtn" mnemonicParsing="false" onAction="#onClickPowOutShedNextPage" prefHeight="35.0" styleClass="next-btn" text="Next &gt;&gt;" />
+                           </children>
+                        </FlowPane>
+                        <ComboBox fx:id="powOutSchedProvinceSelect" layoutX="251.0" layoutY="11.0" onAction="#onSelectProvincePowOutSched" prefHeight="35.0" prefWidth="300.0" stylesheets="@../../../css/ComboBox.css" />
+                        <ComboBox fx:id="powOutSchedRegionSelect" layoutX="583.0" layoutY="11.0" onAction="#onSelectRegionPowOutSched" prefHeight="35.0" prefWidth="300.0" stylesheets="@../../../css/ComboBox.css" />
+                     </children>
+                     <stylesheets>
+                        <URL value="@../../../css/paneContainer.css" />
+                        <URL value="@../../../css/lineStroke.css" />
+                     </stylesheets>
+                     <padding>
+                        <Insets bottom="15.0" />
+                     </padding>
+                  </Pane>
+                  <Pane prefHeight="300.0" prefWidth="670.0" styleClass="pane-container" stylesheets="@../../../css/paneContainer.css">
                      <children>
                         <Pane prefHeight="50.0" prefWidth="670.0" styleClass="header">
                            <children>
@@ -274,7 +312,10 @@
                      </children>
                   </Pane>
                </children>
-            </AnchorPane>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </FlowPane>
          </content>
       </ScrollPane>
       <ScrollPane fx:id="otherScrollPaneContainer" layoutX="240.0" layoutY="60.0" prefHeight="740.0" prefWidth="1160.0" styleClass="scroll-pane-container" stylesheets="@../../../css/scrollPaneContainer.css" visible="false">
@@ -305,7 +346,7 @@
          <children>
             <Pane prefHeight="60.0" prefWidth="200.0" styleClass="pane-nav-header">
                <children>
-                  <Label layoutX="54.0" layoutY="21.0" text="Nguyễn Hoàng Nam" translateX="5.0">
+                  <Label layoutX="54.0" layoutY="21.0" maxHeight="20.0" maxWidth="130.0" text="Nguyễn Hoàng Nam" translateX="5.0">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -313,7 +354,7 @@
                   <Circle fx:id="userAvatarCircle" fill="#d3d3d3" layoutX="34.0" layoutY="30.0" radius="20.0" stroke="#d0d0d0" strokeType="INSIDE" />
                </children>
             </Pane>
-            <Pane fx:id="leftNavBtnListContainer" layoutY="60.0" prefHeight="250.0" prefWidth="200.0">
+            <Pane fx:id="leftNavBtnListContainer" layoutY="60.0" prefHeight="500.0" prefWidth="200.0">
                <children>
                   <Button id="home-button" alignment="CENTER" mnemonicParsing="false" onAction="#onClickChangePage" prefHeight="50.0" prefWidth="200.0" styleClass="pane-nav-button-selected">
                      <graphic>
@@ -359,6 +400,28 @@
                   </Button>
                </children>
             </Pane>
+            <Line endX="60.0" layoutX="120.0" layoutY="639.0" startX="-100.0" stroke="#434343" translateY="-10.0" />
+            <Button id="other-button" alignment="CENTER" layoutX="10.0" layoutY="641.0" mnemonicParsing="false" onAction="#onClickChangePage" prefHeight="50.0" prefWidth="180.0" styleClass="pane-nav-button">
+               <graphic>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../icons/settings-gear-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="60.0" layoutY="16.0" text="Setting">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </graphic>
+               <padding>
+                  <Insets top="-1.0" />
+               </padding>
+            </Button>
          </children>
       </Pane>
    </children>

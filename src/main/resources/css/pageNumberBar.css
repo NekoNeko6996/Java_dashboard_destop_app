@@ -1,0 +1,34 @@
+.page-number-bar > .prev-btn {
+	-fx-text-fill: black;
+	-fx-background-color: transparent;
+	-fx-border-color: -fx-primary-color;
+	-fx-border-radius: 5 0 0 5;
+	-fx-border-width: 2;
+	-fx-background-radius: 5 0 0 5;
+}
+
+.page-number-bar > .number-btn {
+	-fx-text-fill: black;
+	-fx-background-color: transparent;
+	-fx-border-color: -fx-primary-color;
+	-fx-border-width: 2;
+}
+
+.page-number-bar > .next-btn {
+	-fx-text-fill: black;
+	-fx-background-color: transparent;
+	-fx-border-color: -fx-primary-color;
+	-fx-border-radius: 0 5 5 0;
+	-fx-border-width: 2;
+	-fx-background-radius: 0 5 5 0;
+}
+
+.page-number-bar > .next-btn:hover {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}
+
+.page-number-bar > .prev-btn:hover {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}

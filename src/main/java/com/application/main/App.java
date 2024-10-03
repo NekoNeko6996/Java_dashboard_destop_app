@@ -50,6 +50,7 @@ public class App extends Application {
 
         // start here ...
         SettingManager.load();
+        GlobalVariable.init();
         LoginManager.login();
     }
 

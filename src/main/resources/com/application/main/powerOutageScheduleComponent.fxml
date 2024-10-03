@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="130.0" prefWidth="1115.0" style="-fx-background-color: white; -fx-border-style: dotted; -fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="date" layoutX="14.0" layoutY="38.0" styleClass="label-container-title" text="29/09/2024" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="14.0" styleClass="label-container-title" text="Date" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="140.0" layoutY="14.0" styleClass="label-container-title" text="Start Time" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="264.0" layoutY="14.0" styleClass="label-container-title" text="End Time" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="80.0" styleClass="label-container-title" text="Address:" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="startTime" layoutX="140.0" layoutY="38.0" styleClass="label-container-title" text="07:00:00" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="endTime" layoutX="264.0" layoutY="38.0" styleClass="label-container-title" text="16:30:00" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="410.0" layoutY="14.0" styleClass="label-container-title" text="Reason:" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="address" layoutX="91.0" layoutY="80.0" maxWidth="1000.0" prefHeight="25.0" prefWidth="1000.0" styleClass="label-container-title" text="29/09/2024" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="reason" layoutX="485.0" layoutY="14.0" prefHeight="25.0" prefWidth="605.0" styleClass="label-container-title" text="16:30:00" textFill="#6b6b6b">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
