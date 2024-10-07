@@ -1,5 +1,6 @@
 package com.application.controllers;
 
+import com.application.events.EventAfterChangeLocationOfWeather;
 import com.application.events.EventAfterSaveNote;
 import com.application.interfaces.SetEventBus;
 import com.application.main.App;
@@ -7,6 +8,7 @@ import com.application.main.GlobalVariable;
 import com.application.main.Http;
 import com.application.main.LoginManager;
 import com.application.main.PowerOutageScheduleManager;
+import com.application.main.SettingManager;
 import com.application.main.WeatherManager;
 import com.application.models.NoteResponse;
 import com.application.models.PowerOutageSchedule;
@@ -27,7 +29,6 @@ import java.util.Map;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -99,6 +100,9 @@ public class PrimaryController implements SetEventBus {
 
     @FXML
     private FlowPane noteHomeFlowPane;
+
+    @FXML
+    private Label weatherAddressLabel;
 
     // power outage schedule
     @FXML
@@ -179,6 +183,12 @@ public class PrimaryController implements SetEventBus {
 
     }
 
+    // click change location of weather
+    @FXML
+    private void onClickChangeLocation() {
+        App.newStage("searchLocation");
+    }
+
     // click create new note
     @FXML
     private void onClickCreateNewNote() {
@@ -222,10 +232,16 @@ public class PrimaryController implements SetEventBus {
         eventBus.register(this);
     }
 
+    // event handler of create new note
     @Subscribe
     public void handleAfterSaveNote(EventAfterSaveNote event) {
-        System.out.println("EventAfterSaveNote");
         loadNoteToHomePane();
+    }
+
+    // event handler of change location of weather
+    @Subscribe
+    public void handleAfterChangeLocation(EventAfterChangeLocationOfWeather event) {
+        loadWeatherData();
     }
 
     //
@@ -382,12 +398,16 @@ public class PrimaryController implements SetEventBus {
         weatherTomorrowSkeleton.setVisible(true);
         weatherTomorrowSkeleton.setManaged(true);
 
-        // load weather
-        WeatherManager.load(10.15, 105.1833, (Weather data) -> {
-            loadHomeWeatherNodeTomorrow(data);
+        weatherAddressLabel.setText(SettingManager.data.getLocation().getAddress());
 
-            loadHomeWeatherNode(data);
-        });
+        // load weather
+        WeatherManager.load(
+                SettingManager.data.getLocation().getLatitude(),
+                SettingManager.data.getLocation().getLongitude(),
+                (Weather data) -> {
+                    loadHomeWeatherNodeTomorrow(data);
+                    loadHomeWeatherNode(data);
+                });
     }
 
     private static int findTimeIndex(List<String> timeList, LocalDateTime currentTime) {

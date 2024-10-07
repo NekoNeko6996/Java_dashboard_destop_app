@@ -6,18 +6,61 @@ public class Setting {
     private String app_version;
     private String theme;
     private String base_api;
+    private String search_location_api;
     private boolean keep_login;
     private String token;
     private List<NoteColorSet> noteColorSet;
+    private Location location;
 
-    public Setting(String app_version, String theme, String base_api, boolean keep_login, String token,
-            List<NoteColorSet> noteColorSet) {
+    public Setting(String app_version, String theme, String base_api, String search_location_api, boolean keep_login,
+            String token,
+            List<NoteColorSet> noteColorSet, Location location) {
         this.app_version = app_version;
         this.theme = theme;
         this.base_api = base_api;
         this.keep_login = keep_login;
         this.token = token;
         this.noteColorSet = noteColorSet;
+        this.location = location;
+        this.search_location_api = search_location_api;
+    }
+
+    public class Location {
+        private String address;
+        private double latitude;
+        private double longitude;
+
+        // constructor
+        public Location(String address, double latitude, double longitude) {
+            this.address = address;
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+
+        // getter and setter
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
+        }
+
+        public double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
+        }
     }
 
     public class NoteColorSet {
@@ -93,5 +136,21 @@ public class Setting {
 
     public void setNoteColorSet(List<NoteColorSet> noteColorSet) {
         this.noteColorSet = noteColorSet;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getSearch_location_api() {
+        return search_location_api;
+    }
+
+    public void setSearch_location_api(String search_location_api) {
+        this.search_location_api = search_location_api;
     }
 }

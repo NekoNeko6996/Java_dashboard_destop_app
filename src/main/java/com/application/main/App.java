@@ -47,6 +47,8 @@ public class App extends Application {
         SCREEN_INFO.put("weatherNodeComponent1A", new ScreenInfo(150, 140));
         SCREEN_INFO.put("createNewNote", new ScreenInfo(630, 700));
         SCREEN_INFO.put("noteHomeComponent", new ScreenInfo(350, 300));
+        SCREEN_INFO.put("searchLocation", new ScreenInfo(600, 640));
+        SCREEN_INFO.put("searchLocationResultComponent", new ScreenInfo(565, 80));
 
         // start here ...
         SettingManager.load();
@@ -70,6 +72,10 @@ public class App extends Application {
 
                 Parent root = FXMLLoader.load(App.class.getResource(fxml + ".fxml"));
                 Stage stage = new Stage();
+
+                stage.setOnCloseRequest(event -> {
+                    closeStage(fxml);
+                });
                 stage.setScene(new Scene(root, screen.getWidth(), screen.getHeight()));
                 stage.setTitle(title);
                 stage.getIcons().add(appIcon);
@@ -82,6 +88,8 @@ public class App extends Application {
                 // ErrorLog.writeLog(ex, "[OPEN NEW SCENE][" + nameStage + "][ERROR]");
                 alertMessage(Alert.AlertType.ERROR, "Open Scene Error!", ex.getMessage()).showAndWait();
             }
+        } else {
+            stages.get(fxml).toFront();
         }
     }
 
@@ -104,6 +112,10 @@ public class App extends Application {
                 controller.setEventBus(eventBus);
 
                 Stage stage = new Stage();
+
+                stage.setOnCloseRequest(event -> {
+                    closeStage(fxml);
+                });
                 stage.setScene(new Scene(root, screen.getWidth(), screen.getHeight()));
                 stage.setTitle(title);
                 stage.getIcons().add(appIcon);
@@ -116,6 +128,8 @@ public class App extends Application {
                 // ErrorLog.writeLog(ex, "[OPEN NEW SCENE][" + nameStage + "][ERROR]");
                 alertMessage(Alert.AlertType.ERROR, "Open Scene Error!", ex.getMessage()).showAndWait();
             }
+        } else {
+            stages.get(fxml).toFront();
         }
     }
 
@@ -162,6 +176,10 @@ public class App extends Application {
         alert.setHeaderText(headerContent);
         alert.setContentText(content);
         return alert;
+    }
+
+    public static EventBus getEventBus() {
+        return eventBus;
     }
 
     public static void main(String[] args) {

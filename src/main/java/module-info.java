@@ -1,8 +1,10 @@
 module com.application.main {
     requires transitive javafx.controls;
     requires transitive javafx.fxml;
-
     requires transitive com.google.common;
+
+    requires java.annotation;
+
     requires gson;
     requires jbcrypt;
     requires org.apache.httpcomponents.httpclient;
@@ -15,6 +17,7 @@ module com.application.main {
     requires org.jsoup;
     requires spring.core;
     requires javafx.base;
+    requires javafx.graphics;
 
     opens com.application.controllers to javafx.fxml;
     opens com.application.main to javafx.fxml, gson;

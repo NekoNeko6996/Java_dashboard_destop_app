@@ -1,5 +1,6 @@
 * {
 	-fx-primary-background-color: #E1E4EB;
+	-fx-normal-screen-backrgound: white;
 
 	-fx-primary-color: #1890FF;
 	-fx-secondary-color: #864500;
@@ -18,4 +19,8 @@
 
 .primary-screen-pane {
        -fx-background-color:  -fx-primary-background-color;
+}
+
+.normal-screen-pane {
+       -fx-background-color:  -fx-normal-screen-backrgound;
 }

@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class PowerOutageScheduleManager {
-  private static final String URL = SettingManager.data.getBase_api().concat("/getPowerOutageSchedule");
   private static List<PowerOutageSchedule> data = new ArrayList<>();
   private static List<PowerOutageScheduleRegion> region = new ArrayList<>();
 
@@ -23,18 +22,19 @@ public class PowerOutageScheduleManager {
 
     String body = App.gson.toJson(new Body(unitCode, startDate, endDate));
 
-    Http.postUrl(URL, body, null, (String responseText) -> {
-      data = App.gson.fromJson(responseText, new TypeToken<List<PowerOutageSchedule>>() {
-      }.getType());
+    Http.postUrl(SettingManager.data.getBase_api().concat("/getPowerOutageSchedule"), body, null,
+        (String responseText) -> {
+          data = App.gson.fromJson(responseText, new TypeToken<List<PowerOutageSchedule>>() {
+          }.getType());
 
-      callback.accept(data);
-    });
+          callback.accept(data);
+        });
   }
 
   public static void loadRegion(String provinceCode, Consumer<List<PowerOutageScheduleRegion>> callback) {
 
     String body = App.gson.toJson(new FetchRegion(provinceCode));
-    Http.postUrl("http://localhost/php-api-server/public/api/getPowerOutageScheduleRegionList", body, null,
+    Http.postUrl(SettingManager.data.getBase_api().concat("/getPowerOutageScheduleRegionList"), body, null,
         (String responseText) -> {
           region = App.gson.fromJson(responseText, new TypeToken<List<PowerOutageScheduleRegion>>() {
           }.getType());
