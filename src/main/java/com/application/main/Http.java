@@ -43,7 +43,8 @@ public class Http {
                 return EntityUtils.toString(responseEntity, "UTF-8");
             } catch (IOException e) {
                 Platform.runLater(() -> {
-                    App.alertMessage(Alert.AlertType.ERROR, "Send Http Post Request Error", e.getMessage()).showAndWait();
+                    App.alertMessage(Alert.AlertType.ERROR, "Connect to server error!", e.getMessage())
+                            .showAndWait();
                 });
                 return null;
             }
@@ -76,7 +77,8 @@ public class Http {
                 return EntityUtils.toString(responseEntity, "UTF-8");
             } catch (IOException e) {
                 Platform.runLater(() -> {
-                    App.alertMessage(Alert.AlertType.ERROR, "Send Http Get Request Error", e.getMessage()).showAndWait();
+                    App.alertMessage(Alert.AlertType.ERROR, "Send Http Get Request Error", e.getMessage())
+                            .showAndWait();
                 });
                 return null;
             }
@@ -86,7 +88,7 @@ public class Http {
             }
         }, Platform::runLater);
     }
-    
+
     public static void getUrl(String url, Map<String, String> headers, Consumer<String> callback) {
         CompletableFuture.supplyAsync(() -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -109,7 +111,8 @@ public class Http {
                 return EntityUtils.toString(responseEntity, "UTF-8");
             } catch (IOException e) {
                 Platform.runLater(() -> {
-                    App.alertMessage(Alert.AlertType.ERROR, "Send Http Get Request Error", e.getMessage()).showAndWait();
+                    App.alertMessage(Alert.AlertType.ERROR, "Send Http Get Request Error", e.getMessage())
+                            .showAndWait();
                 });
                 return null;
             }
@@ -119,7 +122,7 @@ public class Http {
             }
         }, Platform::runLater);
     }
-    
+
     public static void postUrl(String url, String jsonData, Map<String, String> headers, Consumer<String> callback) {
         CompletableFuture.supplyAsync(() -> {
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -146,7 +149,8 @@ public class Http {
                 return EntityUtils.toString(responseEntity, "UTF-8");
             } catch (IOException e) {
                 Platform.runLater(() -> {
-                    App.alertMessage(Alert.AlertType.ERROR, "Send Http Post Request Error", e.getMessage()).showAndWait();
+                    App.alertMessage(Alert.AlertType.ERROR, "Send Http Post Request Error", e.getMessage())
+                            .showAndWait();
                 });
                 return null;
             }

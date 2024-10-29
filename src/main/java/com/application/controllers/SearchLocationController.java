@@ -27,6 +27,11 @@ public class SearchLocationController {
   private Pane notFoundPane;
 
   @FXML
+  private void onClickClose() {
+    App.closeStage("searchLocation");
+  }
+
+  @FXML
   private void onClickSearch() {
     String location = inputLocation.getText().trim().replace(" ", "+");
 

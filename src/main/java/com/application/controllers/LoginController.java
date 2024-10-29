@@ -37,6 +37,10 @@ public class LoginController {
 
     @FXML
     void onClickLogin(ActionEvent event) {
+        if (!checkInput()) {
+            return;
+        }
+
         LoginForm loginData = new LoginForm(email.getText(), password.getText());
         Http.post("/login", App.gson.toJson(loginData), null, (String response) -> {
             try {
@@ -69,7 +73,8 @@ public class LoginController {
 
     @FXML
     void onClickSignUp(ActionEvent event) {
-
+        App.newStage("signup");
+        App.closeStage("login");
     }
 
     @FXML
@@ -91,5 +96,22 @@ public class LoginController {
         // link text field, password field
         Bindings.bindBidirectional(password.textProperty(), passwordTextPass.textProperty());
 
+    }
+
+    private boolean checkInput() {
+        if (email.getText().isEmpty()) {
+            email.setStyle("-fx-border-color: red;");
+            return false;
+        } else {
+            email.setStyle("-fx-border-color: green;");
+        }
+        if (password.getText().isEmpty()) {
+            password.setStyle("-fx-border-color: red;");
+            return false;
+        } else {
+            password.setStyle("-fx-border-color: green;");
+        }
+
+        return true;
     }
 }

@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -56,6 +57,13 @@ public class CreateNewNoteController implements SetEventBus {
     private ComboBox<String> priorityComboBox;
     @FXML
     private TextField addTagInputTextField;
+
+    @FXML
+    private ToggleButton toggleBold;
+    @FXML
+    private ToggleButton toggleItalic;
+    @FXML
+    private ToggleButton toggleUnderline;
 
     @FXML
     private void onChangeFontSize() {
@@ -156,6 +164,35 @@ public class CreateNewNoteController implements SetEventBus {
         setupNodeSelectedIconList();
     }
 
+    //
+    private void toggleFormat() {
+        Collection<String> styleList = new ArrayList<>();
+
+        // Lấy giá trị size
+        String fontSizeValue = fontSize.getSelectionModel().getSelectedItem();
+        if (fontSizeValue != null) {
+            styleList.add("font-size-" + fontSizeValue);
+        }
+        if (toggleBold.isSelected()) {
+            styleList.add("bold");
+        }
+
+        if (toggleItalic.isSelected()) {
+            styleList.add("italic");
+        }
+
+        if (toggleUnderline.isSelected()) {
+            styleList.add("underline");
+        }
+
+        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
+        spansBuilder.add(styleList, 1);
+
+        styledTextArea.setStyleSpans(styledTextArea.getCaretPosition(), spansBuilder.create());
+
+        System.out.println(styleList);
+    }
+
     private void setupNodeSelectedIconList() {
         for (Node node : chooseIconFlowPane.getChildren()) {
             Button button = (Button) node;
@@ -201,6 +238,7 @@ public class CreateNewNoteController implements SetEventBus {
         String newFontSize = "font-size-" + fontSize;
 
         if (start == end) {
+            toggleFormat();
             return;
         }
 

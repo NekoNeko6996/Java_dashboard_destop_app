@@ -10,12 +10,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.function.Consumer;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class App extends Application {
 
@@ -43,11 +48,12 @@ public class App extends Application {
     public void start(Stage stage) {
         // screen initialize
         SCREEN_INFO.put("login", new ScreenInfo(1000, 650));
+        SCREEN_INFO.put("signup", new ScreenInfo(1000, 650));
         SCREEN_INFO.put("primary", new ScreenInfo(1400, 800));
         SCREEN_INFO.put("weatherNodeComponent1A", new ScreenInfo(150, 140));
         SCREEN_INFO.put("createNewNote", new ScreenInfo(630, 700));
         SCREEN_INFO.put("noteHomeComponent", new ScreenInfo(350, 300));
-        SCREEN_INFO.put("searchLocation", new ScreenInfo(600, 640));
+        SCREEN_INFO.put("searchLocation", new ScreenInfo(600, 700));
         SCREEN_INFO.put("searchLocationResultComponent", new ScreenInfo(565, 80));
 
         // start here ...
@@ -180,6 +186,21 @@ public class App extends Application {
 
     public static EventBus getEventBus() {
         return eventBus;
+    }
+
+    public static void setInterval(int max, int period, Consumer<Integer> callback, Consumer<Integer> onComplete) {
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        final int[] counter = { 0 };
+
+        executor.scheduleAtFixedRate(() -> {
+            counter[0]++;
+            callback.accept(counter[0]);
+
+            if (counter[0] >= max) {
+                executor.shutdown();
+                onComplete.accept(counter[0]);
+            }
+        }, 0, period, TimeUnit.SECONDS);
     }
 
     public static void main(String[] args) {
